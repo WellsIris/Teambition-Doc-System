@@ -4,7 +4,7 @@
  */
 
 var Converter = require('../node_modules/pagedown/Markdown.Converter').Converter
-  , conv = new Converter()
+  , conv = new Converter();
 
 exports.addarticle = function(req, res){
   res.render('article_add_page', { title: 'Weclome to Doc' });
