@@ -5,8 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes');
+var databaseUrl = 'mydb';
+var collections = ['users']
+var db = require('mongojs').connect(databaseUrl, collections);
 
 var app = module.exports = express.createServer();
+
 
 // Configuration
 
@@ -36,4 +40,9 @@ app.post('/article/add', routes.article.submitarticle);
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+});
+
+db.users.save({name:"sun", sex: "male"}, function(err, saved) {
+  if( err || !saved ) console.log("User not saved");
+  else console.log("User saved");
 });
