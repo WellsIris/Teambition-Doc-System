@@ -1,0 +1,38 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'pagedown' ]
+info using npm@1.1.12
+info using node@v0.6.14
+verbose config file /Users/junyuan/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose cache add [ 'pagedown', null ]
+silly cache add: name, spec, args [ undefined, 'pagedown', [ 'pagedown', null ] ]
+verbose parsed url { pathname: 'pagedown', path: 'pagedown', href: 'pagedown' }
+verbose addNamed [ 'pagedown', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'pagedown', '', false ]
+verbose raw, before any munging pagedown
+verbose url resolving [ 'https://registry.npmjs.org/', './pagedown' ]
+verbose url resolved https://registry.npmjs.org/pagedown
+http GET https://registry.npmjs.org/pagedown
+http 404 https://registry.npmjs.org/pagedown
+silly get cb [ 404,
+silly get cb   { server: 'CouchDB/1.2.0 (Erlang OTP/R15B)',
+silly get cb     date: 'Mon, 23 Apr 2012 05:47:03 GMT',
+silly get cb     'content-type': 'application/json',
+silly get cb     'content-length': '52',
+silly get cb     'cache-control': 'must-revalidate' } ]
+ERR! 404 'pagedown' is not in the npm registry.
+ERR! 404 You should bug the author to publish it
+ERR! 404 Note that you can also install from a
+ERR! 404 tarball, folder, or http url, or git url.
+ERR! 
+ERR! System Darwin 11.3.0
+ERR! command "node" "/usr/local/bin/npm" "install" "-g" "pagedown"
+ERR! cwd /Users/junyuan/Develop/Teambition-Doc-System
+ERR! node -v v0.6.14
+ERR! npm -v 1.1.12
+ERR! code E404
+ERR! message 404 Not Found: pagedown
+ERR! errno {}
+verbose exit [ 1, true ]
