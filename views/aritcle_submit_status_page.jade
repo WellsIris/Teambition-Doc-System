@@ -1,2 +1,14 @@
-body
-	!{content}
+!!!5
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/javascripts/libs/prettify/prettify.css')
+		script(type='text/javascript', src='/javascripts/libs/prettify/prettify.js')
+		script(type='text/javascript', src='/javascripts/libs/jquery.js')
+		script
+			var setPreClass = function (){
+				$('pre').addClass('prettyprint');
+			}
+	body(onload='setPreClass();prettyPrint()')
+		!{content}

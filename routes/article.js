@@ -3,12 +3,13 @@
  * Article Related Routes.
  */
 
-markdown = require('markdown').markdown;
+var Converter = require("pagedown/Markdown.Converter.js").Converter;
+var converter = new Converter();
 
 exports.addarticle = function(req, res){
   res.render('article_add_page', { title: 'Weclome to Doc' });
 };
 
 exports.submitarticle = function(req, res){
-	res.render('aritcle_submit_status_page',{ title: 'result', content: markdown.toHTML(req.body.content)});
+	res.render('aritcle_submit_status_page',{ layout: false, title: 'result', content: converter.makeHtml(req.body.content)});
 }
