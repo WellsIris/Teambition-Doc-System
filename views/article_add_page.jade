@@ -1,5 +1,10 @@
 h1= title
 
 form(action='/article/add',method='POST')
+	label article title
+	input(type='text',name='title')
+	label article in category
+	input(type='text',name='category')
+	label article title
 	textarea(type='text',name='content')
 	input(type='submit')

@@ -5,9 +5,29 @@
 
 var express = require('express')
   , routes = require('./routes');
-var databaseUrl = 'mydb';
-var collections = ['users']
-var db = require('mongojs').connect(databaseUrl, collections);
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+var Schema = mongoose.Schema
+  , ObjectId = Schema.ObjectId;
+
+var BlogPost = new Schema({
+    author    : ObjectId
+  , title     : String
+  , body      : String
+  , date      : Date
+});
+
+var Post = mongoose.model('Post', BlogPost);
+
+var instance = new Post();
+instance.title = '11';
+instance.save(function (err) {
+  
+});
+Post.find({}, function (err, docs) {
+  console.log(docs);
+});
 
 var app = module.exports = express.createServer();
 
@@ -38,11 +58,6 @@ app.get('/', routes.index);
 app.get('/article/add', routes.article.addarticle);
 app.post('/article/add', routes.article.submitarticle);
 
-app.listen(3000, function(){
+app.listen(7000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-});
-
-db.users.save({name:"sun", sex: "male"}, function(err, saved) {
-  if( err || !saved ) console.log("User not saved");
-  else console.log("User saved");
 });

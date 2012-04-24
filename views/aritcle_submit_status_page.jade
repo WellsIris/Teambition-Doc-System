@@ -9,6 +9,11 @@ html
 		script
 			var setPreClass = function (){
 				$('pre').addClass('prettyprint');
-			}
-	body(onload='setPreClass();prettyPrint()')
+			};
+			$(document).ready(function(){
+				setPreClass();
+				prettyPrint();
+			});
+	body
 		!{content}
+		a(href='/') back to index

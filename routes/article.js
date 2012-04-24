@@ -11,5 +11,6 @@ exports.addarticle = function(req, res){
 };
 
 exports.submitarticle = function(req, res){
+	console.log(req.headers);
 	res.render('aritcle_submit_status_page',{ layout: false, title: 'result', content: converter.makeHtml(req.body.content)});
 }
