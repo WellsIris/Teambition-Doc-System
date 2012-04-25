@@ -9,7 +9,7 @@ var Converter = require("pagedown/Markdown.Converter.js").Converter;
 var converter = new Converter();
 
 exports.addarticle = function(req, res){
-  res.render('article_add_page', { title: 'Weclome to Doc' });
+  res.render('article_add_page', { title: '撰写新文档' });
 };
 
 exports.submitarticle = function(req, res){
