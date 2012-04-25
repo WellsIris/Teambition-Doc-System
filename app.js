@@ -6,29 +6,6 @@
 var express = require('express')
   , routes = require('./routes');
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-var Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId;
-
-var BlogPost = new Schema({
-    author    : ObjectId
-  , title     : String
-  , body      : String
-  , date      : Date
-});
-
-var Post = mongoose.model('Post', BlogPost);
-
-var instance = new Post();
-instance.title = '11';
-instance.save(function (err) {
-  
-});
-Post.find({}, function (err, docs) {
-  console.log(docs);
-});
-
 var app = module.exports = express.createServer();
 
 

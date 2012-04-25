@@ -2,6 +2,8 @@
 /*
  * Article Related Routes.
  */
+var models = require('../models'),
+	Article = models.Article;
 
 var Converter = require("pagedown/Markdown.Converter.js").Converter;
 var converter = new Converter();
@@ -11,6 +13,10 @@ exports.addarticle = function(req, res){
 };
 
 exports.submitarticle = function(req, res){
-	console.log(req.headers);
+	article = new Article();
+	article.title = req.body.title;
+	article.category = req.body.category;
+	article.content = req.body.content;
+	article.save();
 	res.render('aritcle_submit_status_page',{ layout: false, title: 'result', content: converter.makeHtml(req.body.content)});
 }
