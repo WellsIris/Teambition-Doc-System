@@ -16,7 +16,7 @@ exports.submitarticle = function(req, res){
 	article = new Article();
 	article.title = req.body.title;
 	article.category = req.body.category;
-	article.content = req.body.content;
+	article.content = converter.makeHtml(req.body.content);
 	article.save();
 	res.render('aritcle_submit_status_page',{ layout: false, title: 'result', content: converter.makeHtml(req.body.content)});
 }

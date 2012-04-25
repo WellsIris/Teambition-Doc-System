@@ -12,8 +12,8 @@ exports.index = function(req, res){
 			articles.push(docs[i]);
 		}
 		console.log(articles);
-	});
-	res.render('index', { title: 'Weclome to Teambition Doc' });
+		res.render('index', { title: 'Teambition 官方文档中心', description: '本文档提供了Teambition API的接口信息及使用范例', articles: articles });
+	});	
 };
 
 exports.article = require('./article');

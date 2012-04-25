@@ -1,5 +1,88 @@
-body
-  padding 50px
-  font 14px "Lucida Grande", Helvetica, Arial, sans-serif
-a
-  color #00B7FF
+@font-face
+	font-family texticon
+	src url('texticon.ttf') format('truetype')
+
+h1
+	text-align center
+	line-height 70px
+	font-size 21px
+	font-weight bold
+	color #AAA
+	text-shadow 0 2px 0 white
+
+.desc
+	text-align center
+	color #777
+	font-size 15px
+	text-shadow 0 2px 0 white
+
+.usage
+	margin-top	10px
+	text-align center
+	color #aaa
+	font-size 13px
+	text-shadow 0 2px 0 white
+
+#addarticlebutton
+	position fixed
+	display block
+	bottom 20px
+	left 20px
+	width 210px
+	height 40px
+	line-height 40px
+	text-align center
+	color #777
+	background #111
+	border-radius 5px
+	box-shadow 0 0 5px #111
+
+#navigationbar
+	position fixed
+	overflow auto
+	top 0
+	bottom 0
+	left 0
+	width 250px
+	background url('/images/darkbg.png') repeat top center
+
+.navigationitem
+	a
+		display block
+		padding 10px 20px
+		line-height 20px
+		color gray
+		text-shadow #111 0px 2px 0px
+		border-top 1px solid #45423D
+		border-bottom 1px solid #312F2B
+
+#content
+	position fixed
+	overflow auto
+	top 0
+	bottom 0
+	left 250px
+	right 0
+	bottom 0
+	box-shadow 0 0 15px #111
+	background url('/images/lightbg.png') repeat top center
+
+.doc
+	position relative
+	margin 30px 100px 30px 30px
+	padding 15px
+	background-color #fff
+	border-top 1px solid #fff
+	border-radius 3px
+	box-shadow 0 1px 2px #aaa
+
+.sharehandler
+	position absolute
+	top 0
+	right -55px
+	font-family texticon
+	font-size 50px
+	color rgba(0,0,0,0.3)
+	text-shadow 1px 1px 0px rgba(255,255,255,0.5)
+	content '/'
+
