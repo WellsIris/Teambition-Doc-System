@@ -10,6 +10,10 @@ h1 {
   color: #aaa;
   text-shadow: 0 2px 0 #fff;
 }
+h2 {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
 .desc {
   text-align: center;
   color: #777;
@@ -32,13 +36,21 @@ h1 {
   bottom: 20px;
   left: 20px;
   width: 210px;
-  height: 40px;
-  line-height: 40px;
+  height: 35px;
+  line-height: 35px;
   text-align: center;
-  color: #777;
-  background: #111;
-  border-radius: 5px;
-  box-shadow: 0 0 5px #111;
+  color: #fff;
+  border: 1px solid #27272b;
+  border-radius: 3px;
+  background: -webkit-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.50);
 }
 #navigationbar {
   position: fixed;
@@ -48,6 +60,13 @@ h1 {
   left: 0;
   width: 250px;
   background: url("/images/darkbg.png") repeat top center;
+}
+.navigationitem.active {
+  box-shadow: 0 0 10px #111 inset;
+}
+.navigationitem.active a {
+  border-top: 1px solid #222;
+  color: #fff;
 }
 .navigationitem a {
   display: block;
@@ -89,11 +108,11 @@ h1 {
   content: '/';
 }
 #editor {
-  position: absolute;
-  top: 70px;
-  bottom: 0px;
-  left: 10%;
-  right: 10%;
+  position: relative;
+  width: 80%;
+  min-height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
   background-color: #fff;
   border-top: 1px solid #fff;
   border-top-left-radius: 5px;
@@ -114,10 +133,29 @@ h1 {
   display: block;
   resize: none;
   width: 90%;
-  min-height: 200px;
   padding: 10px;
-  margin: 3% auto 0 auto;
+  margin: 5px auto;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   box-shadow: 1px 1px 3px #eee inset;
+}
+#editor button {
+  display: block;
+  overflow: hidden;
+  width: 90%;
+  height: 40px;
+  margin: 3% auto 0 auto;
+  font-size: 15px;
+  color: #fff;
+  border: 1px solid #147cb9;
+  border-radius: 3px;
+  background: -webkit-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  background: linear-gradient(center top, #32a4ec 0%, #147cb9 100%) repeat scroll 0 0 transparent;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.30) inset, 0 1px 0 #46464c;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.50);
 }
