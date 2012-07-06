@@ -1,0 +1,30 @@
+.h10 { height: 10px }
+.pad5{ padding:5px;}
+.float_l { float: left }
+.float_r { float: right }
+.submit_btn {
+	padding: 5px 14px;
+	background: #fff;
+	border: 1px solid #ccc;
+	font-size: 13px;
+	margin: 15px 10px;
+	cursor:pointer;
+}
+.shade_dialog_input {
+    width: 150px; 
+	color: #333;
+	padding: 5px;
+	background: #fff;
+	border: 1px solid #ccc;
+	font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: normal; }
+.pad30{padding:0 30px;}
+#header{ position:absolute;right:150px;top:10px;z-index:150;font-size:15px;color:#00CC00;}
+#header a{ padding:5px;cursor:pointer;}
+.art_tittle{cursor:pointer;}
+.art_content{}
+a.icons_close{width:16px;height:16px;position:absolute;top:4px;right:4px; background:url(../images/icons_black.png) -32px -192px;}

@@ -4,15 +4,22 @@
  */
 var models = require('../models'),
 	Article = models.Article;
+	User = models.User;
 
 exports.index = function(req, res){
 	var articles = [];
-	Article.find(function(err,docs){
+	if(req.session.user){console.log("user existed.");
+	Article.find({"author":req.session.user},function(err,docs){
 		for(var i = 0; i < docs.length; i++){
 			articles.push(docs[i]);
 		}
-		res.render('index', { title: 'Teambition 官方文档中心', description: '本文档提供了Teambition API的接口信息及使用范例', articles: articles });
+		res.render('index', { title: 'Teambition 官方文档中心', description: '本文档提供了Teambition API的接口信息及使用范例', articles: articles ,user:req.session.user});
 	});	
+	}
+	else{console.log("no user ");
+	  	res.render('index', { title: 'Teambition 官方文档中心', description: '本文档提供了Teambition API的接口信息及使用范例', articles: articles,user:req.session.user});
+	}
 };
 
 exports.article = require('./article');
+exports.user = require('./user');
