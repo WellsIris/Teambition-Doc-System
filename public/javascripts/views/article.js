@@ -15,10 +15,10 @@ define([
 	var ArticleView = Backbone.View.extend({
 	tagName:"li",
 	events:{
-		
 		"click .icons_delete" : "delete",
 		"click .icons_close"  : "clear"
 	},
+
 	initialize:function(model){
 		console.log(model);
 		var model = model.model;
@@ -28,10 +28,12 @@ define([
 				this.template = doT.template(CapterTemplate);
 				$(this.el).addClass("art_content");
 			}
+
 		this.model.on('change', this.render, this);
 		this.model.view = this;
 
 	},
+	
 	render:function(){
 		var mo = this.model.toJSON();
 		if(window.login_user!=""){
@@ -40,9 +42,9 @@ define([
 		}
 		$(this.el).html(this.template(mo));
 		var icons_edit =  $(this.el).find(".icons_edit");
-		if(!window.temp_add){
-			window.temp_add = doT.template(EditorTemplate);
-			}
+		// if(!window.temp_add){
+		// 	window.temp_add = doT.template(EditorTemplate);
+		// 	}
 		if(icons_edit){
 			var edit = new LEES_SHADE();
 			console.log(mo.content);
@@ -63,14 +65,17 @@ define([
 		}
 		return this;
 	},
+
 	delete:function(){
 		console.log("delete invoked."+this.model.get("index"));
 		this.model.clear();
 	},
+
 	clear:function(){
 		console.log("clear invoked."+this.model.get("index"));
 		this.remove();
 	},
+
 	showArticle:function(){
 		var self = this;
 		console.log("show article is invoked");
