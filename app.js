@@ -35,14 +35,15 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-app.post('/login',routes.user.login);
+app.get('/quit',routes.user.quit);
+app.post('/login*',routes.user.login);
 app.post('/register',routes.user.regis);
 app.post('/user',routes.user.regis);
 app.get('/user/:user',routes.index);
 app.get('/articles', routes.article.getarticles);
 app.get('/article/add', routes.article.addarticle);
 app.post('/article/add', routes.article.submitarticle);
-app.get('/article/del*',routes.article.del);
+app.delete('/article/:id',routes.article.del);
 app.listen(7000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

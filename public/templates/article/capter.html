@@ -1,0 +1,8 @@
+<h4 >
+	<a id="{{=it.capter}}">{{=it.capter}}</a>
+</h4>
+<div class="article_tools">{{ if(it.author==it.user){ }}
+	<a class="icons_delete"></a>
+	<a class="icons_edit"></a>{{ } }}
+</div>
+{{=it.content}}

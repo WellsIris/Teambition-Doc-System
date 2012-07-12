@@ -18,20 +18,32 @@ exports.submitarticle = function(req, res){
 	article.author = req.session.user;
 	article.title = req.body.title;
 	article.category = req.body.category;
+	article.capter = req.body.capter;
+	article.index = req.body.index||1;
 	article.content = converter.makeHtml(req.body.content);
 	article.save();
 	res.redirect('/');
 };
 
 exports.del = function(req, res){
-	var query = req.query["title"];
-	Article.remove({"title":query,"author":req.session.user},function(err){console.log(err);});
+	console.log("article.del is invoked");
+	var id=req.body.id||req.params.id;
+	console.log(req.body.id||req.params.id||"no id");
+	Article.remove({"_id":id},function(err){console.log("error:"+err);});
 	res.redirect('/');
 };
 
 exports.getarticles = function(req, res){
 	console.log("getarticles invoked");
-	Article.find({},function(err,docs){
+	var u = req.session.user;
+	if(u){
+		console.log("user is:"+u);
+		Article.find({author:u},function(err,docs){return ga(err,docs);});
+	}else{
+		console.log("user is a tourist");
+		Article.find({},function(err,docs){return ga(err,docs);});
+	}
+	function ga(err,docs){
 		res.writeHead(200, {"Content-Type": "application/json"});
 		console.log(docs);
 		console.log(1);
@@ -39,9 +51,9 @@ exports.getarticles = function(req, res){
 			for(var i = 0; i < docs.length; i++){
 		   articles.push(docs[i]);
 		}
-		var result = JSON.stringify(articles[0]) || '';
+		var result = JSON.stringify(articles) || '';
 		console.log(result);
 		res.write(result);
 		res.end();									
-	});
+	}
 };
