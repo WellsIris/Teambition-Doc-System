@@ -24,39 +24,68 @@
 }
 h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: normal; }
 .pad30{padding:0 30px;}
-#header{font-size: 14px;line-height: 16px;color:#ccc;width:100%;height:30px; position:fixed;top:0;left:0;z-index:150;background:black;opacity: 0.7;filter:alpha(opacity:70);}
-#header a{ padding:5px;cursor:pointer;}
-#header_left{
-		width:250px;height:30px;
-		padding:7px;
-		text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
-		cursor: pointer;
-	}
-#header_left a{}
-#header_left a:hover{
-	color: #02b6d6;
+#header{
+	background-color: #464646;
+    background-image: -moz-linear-gradient(center bottom , #373737, #464646 5px);
+    color: #CCCCCC;
+    direction: ltr;
+    font: 14px/28px sans-serif;
+    height: 28px;
+    left: 0;
+    min-width: 600px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
 }
-#header_mid{
-	height:30px;
-	padding:2px;
+#header_div{
+	border-left:1px solid transparent;
 }
-#header_mid input{
-	display: block;
-	height: 20px;
-	padding:2px;
+#header *{
+	color: #CCCCCC;
+    font: 13px/28px sans-serif;
+    height: auto;
+    letter-spacing: normal;
+    margin: 0;
+    padding: 0;
+    position: static;
+    text-shadow: 0 -1px 0 #444444;
+    text-transform: none;
+    width: auto;
 }
-#header_mid button{
-	display: block;
-	height:26px;
-	font-size: 16px;
-	color:#333;
-	line-height: 16px;
-	padding: 2px;
+#header ul{
+	padding:0;
+	width:auto;
+	height:100%;
+	margin:0;
 }
-#header_mid button:hover{
-	color:#02b6d6;
+#header ul li{
+	background: none repeat scroll 0 50% transparent;
+    clear: none;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0 ;
+    position: relative;
+    z-index: 999;
+    //border-right:1px solid #555;
+    float:left;
+    border-left:1px solid #555;
+    -moz-box-shadow: 0 0 2px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.6);
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
 }
-#header_right{margin-right:20px;padding:7px;}
+#header li.first{
+	border-left:none;
+}
+#header ul li:before, #header ul li:after {
+    content: normal;
+}
+#header a{
+    padding:6px 8px;cursor:pointer;
+}
+#header a:hover{
+	background:#333;
+}
 #hidden{display: none}
 .art_title{cursor:pointer;color:#02b6d6;}
 .art_author{color: #999;}

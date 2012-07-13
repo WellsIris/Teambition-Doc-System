@@ -24,9 +24,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // ----------------------------------------------------------------------------
-define([
-	'jquery'
-], function ($){
+(function($) {
 	$.fn.markItUp = function(settings, extraSettings) {
 		var options, ctrlKey, shiftKey, altKey;
 		ctrlKey = shiftKey = altKey = false;
@@ -592,4 +590,4 @@ define([
 			$('textarea').trigger('insertion', [options]);
 		}
 	};
-});
+})(jQuery);

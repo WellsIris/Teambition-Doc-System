@@ -4,8 +4,8 @@ define([
 	'backbone',
 	'json2',
 	'doT',
-	'models/user',
-	'text!../../../templates/user/user.html'
+	'UserModel',
+	'text!../../../templates/user/user.html',
 ],function ($, _, Backbone,json2 ,doT,UserModel, UserTemplate){
 	var UserView = Backbone.View.extend({
 	tagName:"div",

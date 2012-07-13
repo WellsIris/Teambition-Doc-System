@@ -1,14 +1,17 @@
-<div class="float_l" id="header_left">
-	<a>Teambition.com</a>
-</div>
-<div class="float_l" id="header_mid">
-	<input type="text" name="search" id="search" class="float_l"  />
-	<button  class="float_l" >Search</button>
-</div>
-	<div class="float_r" id="header_right">{{ if(it.user){ }}欢迎您，{{=it.user}}!
-		<a href="/quit">退出登陆</a>
-		<a id="addarticlebutton">撰写新文档</a>  {{ } }}{{ else { }} 
-		<a id="login">登陆</a>
-		<a id="regis">注册<a/>{{ } }}
-	</div>
 
+<div id="header_div">
+<ul class="float_l">
+	<li class="first"><a>Teambition.com</a></li>
+</ul>
+<ul class="float_r">
+	{{ if(it.user){ }}
+		<li><a id="addarticlebutton">撰写新文档</a></li>
+		<li>&nbsp;&nbsp;欢迎您，{{=it.user}}!&nbsp;&nbsp;</li>
+		<li><a href="/quit">退出登陆</a></li>
+	{{ } }}
+	{{ else{ }}
+		<li><a id="login">登陆</a></li>
+		<li><a id="regis">注册<a/></li>
+	{{ } }}
+</ul>
+</div>

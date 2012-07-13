@@ -3,27 +3,30 @@ define([
 	'underscore',
 	'backbone',
 	'doT',
-	'collections/article',
+	'ArticleCollection',
 	'text!../../../templates/navigation/navigationart.html',
 	'text!../../../templates/navigation/navigationitem.html'
 ],function ($, _, Backbone, doT,ArticleCollection, NavArtTemplate,NavItemTemplate){
-	window.ItemView = Backbone.View.extend({
+	var ItemView = Backbone.View.extend({
 		tagName:"li",
 		events:{
 			"click":"show"
 		},
 		initialize:function(model){
 			model = model.model;
-			if(parseInt(model.get("index")) == 1){
+			if(parseInt(model.get("order")) == 1){
 				this.template = doT.template(NavArtTemplate);	
 			}else{
 				this.template = doT.template(NavItemTemplate);
 				$(this.el).addClass("navigationitem");
 			}
 			
-			console.log(this.el);
 			this.model.on("change",this.render,this);
-			this.model.view = this;
+			if(!this.model.views){
+				this.model.views = {};
+			}
+			this.model.views.item = this;
+			
 
 		},
 		render:function(){

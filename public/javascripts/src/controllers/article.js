@@ -3,17 +3,17 @@ define([
 	'underscore',
 	'backbone',
 	'doT',
-	'views/article',
-	'views/item'
+	'ArticleView',
+	'ItemView'
 ],function ($, _, Backbone, doT, ArticleView , ItemView ){
 	var AppView = Backbone.View.extend({
 		el:$("#content_ul"),
 		_el:$("#navigationlist"),
 		initialize:function(){
 			var self = this;
-			this.collection = window.articles;
-			window.articles.bind("sync",this.showAll,this);
-			window.articles.bind("reset",this.showAll,this);
+			this.collection = doc_sys.articles;
+			doc_sys.articles.bind("sync",this.showAll,this);
+			doc_sys.articles.bind("reset",this.showAll,this);
 			this.collection.fetch({
 				success:function(){
 					console.log("fetch success");
@@ -36,23 +36,7 @@ define([
 			_.each(this.collection.models, function (model, index){
 				self.showOne(model);
 			});
-			var content = $(this.el).find("h2");
-			var len = content.length;
-			for(var i=0;i<len;i++){
-				$(content[i]).nextAll(".capterList").hide();
-				$(content[i]).toggle(function(){
-					if(!this.tag){
-						this.tag = $(this).nextAll(".capterList");
-					}
-					this.tag.slideDown();
-					
-				},function(){
-					if(!this.tag){
-						this.tag = $(this).nextAll(".capterList");
-					}
-					this.tag.slideUp();
-				});
-			}
+			
 		},
 		showOne:function(model){
 			console.log("showOne is invoked");
@@ -64,12 +48,13 @@ define([
 			});
 			var a = aView.render();
 			var i = iView.render();
-			if(parseInt(a.model.get("index"))==1){
-				$(this.el).append(a.el);
+			if(parseInt(a.model.get("order"))==1){
+				$(this.el).append(a._el);
+				$("#art_"+a.model.get("title")).append(a.el);
 			}else{
 				$("#art_"+a.model.get("title")).append(a.el);
 			}
-			if(parseInt(i.model.get("index"))==1){
+			if(parseInt(i.model.get("order"))==1){
 				$(this._el).append(i.el);
 			}else{
 				$("#"+i.model.get("title")).append(i.el);
@@ -78,7 +63,7 @@ define([
 		},
 		showAll:function(){
 			console.log("showAll is invoked");
-			articles.each(this.showOne);
+			doc_sys.articles.each(this.showOne);
 		},
 		editArticle:function(){
 		}

@@ -16,7 +16,10 @@ define([
 	urlRoot:'/article',
 	clear:function(){
 		Backbone.sync("delete",this,{url:"/article/"+this.attributes._id});
-		this.view.remove();
+		for(var va in this.views){
+			this.views[va].remove();
+		}
+		
 	}
 });
 
