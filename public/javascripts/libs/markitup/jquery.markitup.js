@@ -24,7 +24,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // ----------------------------------------------------------------------------
-(function($) {
+define([
+	'jquery'
+], function ($){
 	$.fn.markItUp = function(settings, extraSettings) {
 		var options, ctrlKey, shiftKey, altKey;
 		ctrlKey = shiftKey = altKey = false;
@@ -590,4 +592,4 @@
 			$('textarea').trigger('insertion', [options]);
 		}
 	};
-})(jQuery);
+});
