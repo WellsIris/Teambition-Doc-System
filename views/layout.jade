@@ -5,21 +5,9 @@ html
 		link(rel='stylesheet', href='/stylesheets/reset.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		link(rel='stylesheet', href='/stylesheets/lees.css')
-		link(rel='stylesheet', href='/javascripts/libs/markitup/skins/simple/style.css')
-		link(rel='stylesheet', href='/javascripts/libs/markitup/sets/default/style.css')
-		link(rel='stylesheet', href='/javascripts/libs/prettify/prettify.css')
-		script( src='/javascripts/libs/jquery/jquery-min.js')
+		
 		script(data-main='/javascripts/main.js', src='/javascripts/libs/require/require.js')
-		script( src='/javascripts/libs/prettify/prettify.js')
-		script( src='/javascripts/libs/markitup/jquery.markitup.js')
-		script( src='/javascripts/libs/markitup/sets/default/set.js')
-
-		script
-			$('pre').addClass('prettyprint');
-		script
-			$(document).ready(function(){
-				prettyPrint();
-				$('.maineditor').markItUp(mySettings);
-			});
+		
+		
 		
 	body!= body

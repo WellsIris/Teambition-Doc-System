@@ -2,7 +2,12 @@
 	<a id="{{=it.capter}}">{{=it.capter}}</a>
 </h4>
 <div class="article_tools">{{ if(it.author==it.user){ }}
-	<a class="icons_delete"></a>
-	<a class="icons_edit"></a> {{ } }}
+	<a class="icons edit"><div class="icons_edit"></div><div class="float_l">编辑</div></a>
+	<a class="icons delete"><div class="icons_delete"></div><div class="float_l">删除</div></a>
+	 {{ } }}
 </div>
-{{=it.content}}
+<div class="article_content">
+	<div class="numList float_l">{{=it.list}}</div>
+	<div class="lineList float_l">{{=it.content}}</div>
+	<div class="clear"></div>
+</div>
