@@ -131,7 +131,7 @@ exports.hasCssString = function(id, doc) {
     return false;
 };
 
-exports.importCssString = function(cssText, id, doc) {
+exports.importCssString = function importCssString(cssText, id, doc) {
     doc = doc || document;
     // If style is already imported return immediately.
     if (id && exports.hasCssString(id, doc))

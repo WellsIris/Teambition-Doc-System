@@ -47,7 +47,25 @@ define([
 				$("#regsub").click(this.regis);
 			}else{
 				console.log("user existed.");
-				
+				if(!doc_sys.temp_add){
+				doc_sys.temp_add = doT.template(EditorTemplate);
+				}
+				var add = new LEES_SHADE();
+				add.blind($("body"),{
+	            "evtobj":$("#addarticlebutton"),
+		        "don":true,
+				"evttype":"click",
+				"sani":true,
+				"dani":true,
+				"dhei":"auto",
+				"dwid":800,
+	            "html":doc_sys.temp_add({h1:"撰写新文档",title:"文档标题",categroy:"文档所属栏目",capter:"章节标题，文档不分章节此项可略。",index:"章节索引",content:"文档正文，请使用markdown语法撰写"}),
+	            "afterevt":function(bg,dia){
+	            	$(dia).find("input").one("focus",function(){
+	            		$(this).val("");
+	            	});
+	            }
+				});
 
 			}
 		},

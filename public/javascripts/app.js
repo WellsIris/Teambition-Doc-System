@@ -11,7 +11,7 @@ define([
 	'ItemView',
 	'UserController',
 	'ArticleController'
-], function ($, _, Backbone, json2, UserModel, ArticleModel,ArticleCollection,UserView,ArticleView,ItemView,AppUser,AppArticle){
+], function ($, _, Backbone, json2, UserModel, ArticleModel,ArticleCollection,UserView,ArticleView,ItemView,AppUser,AppArticle ){
 
 	
 
@@ -33,7 +33,8 @@ define([
 		doc_sys.apparticle = new AppArticle;
 
 		
-		//ace.edit('maineditor');
+
+		
 
 		console.log("app initialize end");
 

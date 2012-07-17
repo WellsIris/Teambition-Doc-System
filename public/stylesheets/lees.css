@@ -3,7 +3,6 @@
 .pad5{ padding:5px;}
 .float_l { float: left }
 .float_r { float: right }
-.clear{clear: both;}
 .submit_btn {
 	padding: 5px 14px;
 	background: #fff;
@@ -93,66 +92,7 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 .art_content{position: relative;}
 .article_tools{position:absolute;height: 18px;top:4px;right:4px;}
 .article_tools a{cursor: pointer;}
-.icons{
-    font-size: 14px;
-    color:#999;
-    line-height: 16px;
-    position: relative;
-    float:left;
-    margin-left:4px;
-
-}
-.icons_close{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -32px -192px;}
-.icons_email{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -80px -96px;}
-.icons_edit {width:16px;height:16px;position:relative;float:left; background:url(../images/icons_black.png) -64px -112px;}
-.icons_delete{width:16px;height:16px;position:relative;float:left; background:url(../images/icons_black.png) -176px -96px;}
-.article_content{
-    position: relative;
-    border : 1px solid #e0e0e0;
-    border-radius:  5px;
-    box-shadow:  1px 1px 3px #eee inset;
-    height:auto;
-}
-.numList{
-     position: relative;
-    background-color:#eee;
-    color:#666;
-    width:auto;
-    padding:0 10px;
-}
-.numList>div {
-    height:17px;
-    font-size: 13px;
-    line-height: 17px;
-}
-.lineList{
-    position: relative;
-    padding:0 6px;
-}
-.ace_line{
-
-}
-.ace_string{
-    color:green;
-}
-.ace_keyword,.ace_function{
-    color:blue;
-}
-.ace_comment{
-    color:#999;
-}
-.ace_variable,.ace_language{
-    color:#00cc99;
-}
-#maineditor{
-    position: relative;
-    z-index: 2000;
-    border: 1px solid #ccc;
-    width : 90%;
-    min-height:200px;
-    margin : 3% auto 0 auto;
-    border : 1px solid #e0e0e0;
-    border-radius:  5px;
-    font-size : 14px;
-    box-shadow:  1px 1px 3px #eee inset;
-}
+a.icons_close{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -32px -192px;}
+a.icons_email{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -80px -96px;}
+a.icons_edit {width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -64px -112px;}
+a.icons_delete{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -176px -96px;}

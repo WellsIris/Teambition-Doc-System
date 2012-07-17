@@ -16,9 +16,8 @@ define([
 	tagName:"li",
 	events:{
 		
-		"click .delete" : "delete",
-		"click .close"  : "clear",
-		"click .edit"   : "edit"
+		"click .icons_delete" : "delete",
+		"click .icons_close"  : "clear"
 	},
 	initialize:function(model){
 		console.log("articleview initialized");
@@ -36,25 +35,38 @@ define([
 	},
 	render:function(){
 		var self = this;
-		self.mo = this.model.toJSON();
-
+		var mo = this.model.toJSON();
 		if(doc_sys.login_user!=""){
-			self.mo = _.extend(self.mo,{user:doc_sys.login_user});
+			var mo = _.extend(mo,{user:doc_sys.login_user});
 		}
-		if(self.mo.order == 1){
+		if(mo.order == 1){
 			self._temp = doT.template(ArticleTemplate);
 			this._el = document.createElement("li");
-			$(this._el).html(self._temp(self.mo));
+			$(this._el).html(self._temp(mo));
 		}
-		var con_arr = self.mo.content.split("##");
-		self.mo.content = con_arr[0];
+		$(this.el).html(this.template(mo));
+		var icons_edit =  $(this.el).find(".icons_edit");
+		if(!doc_sys.temp_add){
+			doc_sys.temp_add = doT.template(EditorTemplate);
+			}
+		if(icons_edit){
+			var edit = new LEES_SHADE();
+			edit.blind($("body"),{
+            "evtobj":icons_edit,
+	        "don":true,
+			"evttype":"click",
+			"sani":true,
+			"dani":true,
+			"dhei":"auto",
+			"dwid":800,
+            "html":doc_sys.temp_add({h1:"编辑文档",title:mo.title||" ",categroy:mo.categroy||" ",capter:mo.capter||" ",index:mo.index||1}),
+            "afterevt":function(bg,dia){
 
-		var list = this.makeNumList(parseInt(con_arr[1]));
-		self.mo = _.extend(self.mo,{list:list});
-		$(this.el).html(this.template(self.mo));
-		
-
-
+            	$(dia).find("textarea").focus().val(mo.content);
+            
+            }
+			});
+		}
 		return this;
 	},
 	delete:function(){
@@ -64,18 +76,6 @@ define([
 	clear:function(){
 		console.log("clear invoked."+this.model.get("index"));
 		this.remove();
-	},
-	edit:function(){
-		console.log("edit is invoked");
-		if(!doc_sys.editTemp){
-			doc_sys.editTemp = doT.template(EditorTemplate);
-		}
-		var d = document.createElement("div");
-		$(d).html(doc_sys.editTemp(this.mo));
-		$(this.el).append(d);
-		$(d).find("form").submit();
-		console.log($(d).find("form"));
-		console.log("edit end");
 	},
 	showArticle:function(){
 		var self = this;
@@ -87,14 +87,6 @@ define([
 		},function(){
 			self.content.slideUp();
 		});
-	},
-	makeNumList:function(num){
-		var result="" ;
-		for(var i=1;i<=num;i++){
-			result = result+"<div>"+i+"</div>";
-		}
-		console.log("result:"+result);
-		return result;
 	}
 });
 
