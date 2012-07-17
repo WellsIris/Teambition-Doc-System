@@ -1,12 +1,11 @@
-<div class="commonbg">
-	<h1>{{=it.h1}}</h1>
-	<section id="editor">
-		<form action="/article/add" method="post">
-			<input type="text" name="title" value="{{=it.title}}" placeholder="文档标题" />
-			<input type="text" name="categroy" placeholder="文档所属栏目" value="{{=it.categroy}}" />
-			<input type="text" name="capter" placeholder="章节标题，文档不分章节此项可略。" value="{{=it.capter}}" />
-			<input type="text" name="index" placeholder="章节索引(数字，如1，2，3)，文档不分章节此项可略。" value="{{=it.index}}" />
-			<textarea class="maineditor" type="text" name="content" placeholder="文档正文，请使用markdown语法撰写" /><button type="submit"><span>确认无误，提交文档</span></button>
+
+		<form action="/article/edit" method="post" name="edit" style="visibility:hidden" >
+			<input type="text" name="title" value="{{=it.title}}" />
+			<input type="text" name="category" value="{{=it.category||it.title}}" />
+			<input type="hidden" name="id" value="{{=it._id}}" />
+			<input type="text" name="capter" value="{{=it.capter}}" />
+			<input type="text" name="index" value="{{=it.index}}" />
+			<textarea name="simple_content">{{=it.simple_content}}</textarea>
+			<button type="submit"></button>
 		</form>
-	</section>
-</div>
+	

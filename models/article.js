@@ -8,6 +8,7 @@ var ArticleSchema = new Schema({
 	index:{type:String},
 	category: {type: String},
 	content: {type: String},
+	simple_content:{type:String},
 	create_at: {type: Date, default: Date.now}
 });
 
