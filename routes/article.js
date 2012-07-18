@@ -23,8 +23,6 @@ exports.editarticle = function(req,res){
 }
 exports.update = function(req,res){
 
-	console.log("update invoked");
-
 	var id = req.body.id;
 	var title = req.body.title;
 	var category = req.body.category;
@@ -45,7 +43,6 @@ exports.update = function(req,res){
 			"index":index,
 			"content":content,
 			"simple_content":simple_content
-
 		}},false,false);
 
 	res.redirect('/');
