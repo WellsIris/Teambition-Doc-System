@@ -22,17 +22,21 @@ define(function(require, exports, module) {
 
 	var jsMode = require("ace/mode/javascript").Mode;
 
+
 	var editor = ace.edit("maineditor");
     editor.getSession().setMode(new jsMode());
     var doc = editor.getSession().getDocument();
     require("libs/jquery/jquery-min");
     var obj = $("#maineditor");
 
+
+    
+
     function resize(){
     	var HEIGHT = 17;
     	var len = doc.getLength();
-
-    	obj.height(len*HEIGHT+20);
+        var hei = len*HEIGHT+20<200?200:len*HEIGHT+20;
+    	obj.height(hei);
     	editor.resize();
     }
 
@@ -50,6 +54,7 @@ define(function(require, exports, module) {
 
         console.log(ta.html());
     	$("#maineditor").remove();
+
     }); 
 
      

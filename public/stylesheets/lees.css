@@ -147,7 +147,6 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 #maineditor{
     position: relative;
     z-index: 2000;
-    border: 1px solid #ccc;
     width : 90%;
     min-height:200px;
     margin : 3% auto 0 auto;

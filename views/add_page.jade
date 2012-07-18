@@ -10,10 +10,12 @@ html
 			section#editor
 				form(action="/article/add",method="post")
 					input(type="text",name="title",placeholder="文档标题")
-					input(type="text",name="categroy",placeholder="文档所属栏目")
+
+					input(type="text",name="category",placeholder="文档所属栏目")
 					input(type="text",name="capter",placeholder="章节标题")
 					input(type="text",name="index",placeholder="章节索引(数字，如1，2，3)，文档不分章节此项可略。")
 					textarea(name="content",style="visibility:hidden;height:0",id="content")
+
 					div#maineditor here goes your code
 					button(type="submit",id="submit")
 						span 确认无误，提交文档

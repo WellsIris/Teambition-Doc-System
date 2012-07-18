@@ -47,5 +47,6 @@ require.config({
 require([
     'app'
 ], function(App){
+	console.log("main end");
     App.initialize();
 });

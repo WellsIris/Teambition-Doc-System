@@ -47,6 +47,7 @@ define([
 			$(this._el).html(self._temp(self.mo));
 		}
 		var con_arr = self.mo.content.split("##");
+
 		self.mo.content = con_arr[0];
 
 		var list = this.makeNumList(parseInt(con_arr[1]));
@@ -89,6 +90,7 @@ define([
 		});
 	},
 	makeNumList:function(num){
+
 		var result="" ;
 		for(var i=1;i<=num;i++){
 			result = result+"<div>"+i+"</div>";

@@ -22,6 +22,9 @@ exports.editarticle = function(req,res){
 	res.render('edit_page', o);
 }
 exports.update = function(req,res){
+
+	console.log("update invoked");
+
 	var id = req.body.id;
 	var title = req.body.title;
 	var category = req.body.category;
@@ -31,16 +34,20 @@ exports.update = function(req,res){
 	var con = content.split("@@");
 	var simple_content = con[1];
 	var content = con[0];
-	Article.update({"_id":id},function(doc,err){
-		doc.set({
+
+	console.log("id:"+id+"  titlt"+title+"   content:"+content);
+	console.log(Article.update);
+	Article.update({"_id":id},{$set:{
+
 			"title":title,
 			"category":category,
 			"capter":capter,
 			"index":index,
 			"content":content,
 			"simple_content":simple_content
-		})
-	})
+
+		}},false,false);
+
 	res.redirect('/');
 }
 exports.submitarticle = function(req, res){
