@@ -1,0 +1,33 @@
+<h3>创建新文档</h3>
+
+<form action="/doc/add" method="POST" id="doc-create-form">
+	<input type="hidden" name="founder" value="{{=it.founder}}" />
+	<input type="hidden" name="partners" />
+	<input type="hidden" name="outline"  />
+	<div id="docNameArea">
+	<label>文档名:</label>
+	<input type="text" name="docName" placeholder="" />
+	<div class="clear"></div>
+	</div>
+</form>
+	<div id="partnersArea">
+	<h4 >参与人:</h4>
+	<div id="partners">
+		<div class="clear"></div>
+	</div>
+	<div id="addPartner" class="btn_a right_tools">
+		<div class="icons_add float_l"></div>
+		<div class="float_l">添加参与人</div>
+	</div>
+	</div>
+	
+	<div id="advanceOp">
+		<h4>文档大纲：</h4>
+		<div class="clear"></div>
+		<div id="addArt" class="btn_a right_tools">
+		<div class="icons_add float_l"></div>
+		<div class="float_l">添加文章</div>
+	</div>
+		<div id="outline"></div>
+	</div>
+	<div id="docCreateSubmit" class="btn_b">创建</div>

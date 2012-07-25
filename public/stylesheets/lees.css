@@ -26,7 +26,7 @@
 h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: normal; }
 .pad30{padding:0 30px;}
 #header{
-	background-color: #464646;
+	background:url('/images/darkbg_1.png') repeat top center;
     background-image: -moz-linear-gradient(center bottom , #373737, #464646 5px);
     color: #CCCCCC;
     direction: ltr;
@@ -37,7 +37,7 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 100;
 }
 #header_div{
 	border-left:1px solid transparent;
@@ -88,10 +88,6 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 	background:#333;
 }
 #hidden{display: none}
-.art_title{cursor:pointer;color:#02b6d6;}
-.art_author{color: #999;}
-.art_content{position: relative;}
-.article_tools{position:absolute;height: 18px;top:4px;right:4px;}
 .article_tools a{cursor: pointer;}
 .icons{
     font-size: 14px;
@@ -106,15 +102,16 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 .icons_email{width:16px;height:16px;position:relative;float:right; background:url(../images/icons_black.png) -80px -96px;}
 .icons_edit {width:16px;height:16px;position:relative;float:left; background:url(../images/icons_black.png) -64px -112px;}
 .icons_delete{width:16px;height:16px;position:relative;float:left; background:url(../images/icons_black.png) -176px -96px;}
+.icons_down_triangle{width:18px;height:10px;position:absolute;right:0;top:6px; background:url(../images/icons_black.png) -64px -16px;}
 .article_content{
     position: relative;
-    border : 1px solid #e0e0e0;
-    border-radius:  5px;
-    box-shadow:  1px 1px 3px #eee inset;
+    
     height:auto;
+    overflow-y: hidden;
 }
 .numList{
-     position: relative;
+     position:relative;
+     float:left;
     background-color:#eee;
     color:#666;
     width:auto;
@@ -126,7 +123,8 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
     line-height: 17px;
 }
 .lineList{
-    position: relative;
+    position:absolute;
+     top:0;left:50px;
     padding:0 6px;
 }
 .ace_line{
@@ -143,15 +141,4 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 }
 .ace_variable,.ace_language{
     color:#00cc99;
-}
-#maineditor{
-    position: relative;
-    z-index: 2000;
-    width : 90%;
-    min-height:200px;
-    margin : 3% auto 0 auto;
-    border : 1px solid #e0e0e0;
-    border-radius:  5px;
-    font-size : 14px;
-    box-shadow:  1px 1px 3px #eee inset;
 }

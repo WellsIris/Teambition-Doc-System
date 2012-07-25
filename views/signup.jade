@@ -1,0 +1,44 @@
+!!!5
+html
+	head
+		meta(charset='utf-8')
+		title Teambition - 一起完成团队梦想
+		link(rel='shortcut icon', href='/images/favicon.ico')
+		link(rel='apple-touch-icon', href='/images/apple-touch-icon.png')
+		link(rel='apple-touch-icon', sizes='72x72', href='/images/apple-touch-icon-72x72.png')
+		link(rel='apple-touch-icon', sizes='114x114', href='/images/apple-touch-icon-114x114.png')
+		link(rel='stylesheet', href='/stylesheets/reset.css')
+		link(rel='stylesheet', href='/stylesheets/signup.css')
+	body
+		section#signupbg
+		section#signupbox
+			div.signupboxheader
+				h1.signupslogan 十秒注册
+				div.h10
+				p.signupdesc 欢迎使用teambition文档系统
+				
+			hl.partitionline
+			div.signupboxform
+				div.formitem
+					div.texticon.inputlabel %
+					div.inputwrapper#emailinputwrapper
+						input#emailinput(type='text',placeholder='您的邮箱地址')
+				
+				div.formitem
+					div.texticon.inputlabel U
+					div.inputwrapper#password1wrapper
+						input#password1(type='password',placeholder='您希望使用的密码')
+				div.formitem
+					div.texticon.inputlabel U
+					div.inputwrapper#password2wrapper
+						input#password2(type='password',placeholder='再次确认密码')
+
+			div.signupboxfooter
+				div.checkbox#termchecker
+				div.termservice 我同意Teambition的服务准则
+				div.signupbutton.button.blue#signupbutton 注册
+
+	script(data-main='/javascripts/signup', src='/javascripts/libs/require/require.js') 
+
+
+	

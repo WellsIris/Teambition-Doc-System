@@ -4,9 +4,11 @@ define([
 	'backbone',
 	'json2',
 	'doT',
+	'LEES_SHADE',
 	'UserModel',
 	'text!../../../templates/user/user.html',
-],function ($, _, Backbone,json2 ,doT,UserModel, UserTemplate){
+	'text!../../../templates/article/doc-create.html'
+],function ($, _, Backbone,json2 ,doT,LEES_SHADE,UserModel, UserTemplate,DocCreateTemp){
 	var UserView = Backbone.View.extend({
 	tagName:"div",
 	events:{
@@ -18,10 +20,15 @@ define([
 		this.template = doT.template(UserTemplate);
 		this.model.on('change', this.render);
 		this.model.view = this;
+		
+
 	},
 	render:function(){
 		console.log("user view rendered");
 		$(this.el).html(this.template(this.model.toJSON()));
+
+		
+
 		return this;
 	}
 });

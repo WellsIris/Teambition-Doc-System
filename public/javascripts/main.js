@@ -11,12 +11,17 @@ require.config({
 		json2		 	  : 'libs/json2/json2',
 		LEES_SHADE   	  : 'libs/LEES_SHADE/LEES_SHADE',
 		UserModel	 	  : 'src/models/user',
+		DocModel		  : 'src/models/doc',
 		ArticleModel 	  : 'src/models/article',
+		DocCollection	  : 'src/collections/doc',
 		ArticleCollection : 'src/collections/article',
 		UserView		  : 'src/views/user',
+		DocView			  : 'src/views/doc',
 		ArticleView		  : 'src/views/article',
+		CapterView		  : 'src/views/capter',
 		ItemView		  : 'src/views/item',
 		UserController    : 'src/controllers/user',
+		DocController	  : 'src/controllers/doc',
 		ArticleController : 'src/controllers/article',
 		Ace 			  : 'ace',
 		JsMode			  : 'libs/ace/mode/javascript',
@@ -36,11 +41,13 @@ require.config({
 		TextMate		  : 'libs/ace/theme/textmate',
 		UserTemp		  : 'text!../../templates/user/user.html',
 		LARTemp			  : 'text!../../templates/user/logandreg.html',
+		DocTemp			  : 'text!../../templates/article/doc.html',
 		ArticleTemp 	  : 'text!../../templates/article/article.html',
 		CapterTemp		  : 'text!../../templates/article/capter.html',
 		EditorTemp		  : 'text!../../templates/article/editor.html',
 		NavArtTemp		  : 'text!../../templates/navigation/navigationart.html',
-		NavItemTemp		  : 'text!../../templates/navigation/navigationitem.html'
+		NavItemTemp		  : 'text!../../templates/navigation/navigationitem.html',
+
 	}
 });
 

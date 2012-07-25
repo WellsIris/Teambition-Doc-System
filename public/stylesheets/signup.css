@@ -1,0 +1,382 @@
+.button {
+  border: 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.30);
+  margin: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.button.blue {
+  color: #fff;
+  background-image: -webkit-linear-gradient(bottom, #2380b4, #56a7db);
+  background-image: -moz-linear-gradient(bottom, #2380b4, #56a7db);
+  background-image: -o-linear-gradient(bottom, #2380b4, #56a7db);
+  background-image: -ms-linear-gradient(bottom, #2380b4, #56a7db);
+  background-image: linear-gradient(bottom, #2380b4, #56a7db);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.50);
+}
+@font-face {
+  font-family: texticon;
+  src: url("texticon.eot");
+/* IE9*/
+  src: url("texticon.eot?#iefix") format('embedded-opentype'), url("texticon.woff") format('woff'), url("texticon.ttf") format('truetype'), url("texticon.svg#svgFontName") format('svg');
+}
+.texticon {
+  font-family: texticon;
+}
+.ui-autocomplete {
+  max-height: 260px;
+  overflow-y: hidden;
+}
+.ui-menu {
+  width: 339px;
+  padding-bottom: 5px;
+  background-color: #fff;
+  box-shadow: 0 5px 5px #ccc;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.ui-autocomplete-category {
+  position: relative;
+  display: block;
+  height: 20px;
+  padding: 5px 5px 5px 30px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.ui-autocomplete-category:before {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-family: texticon;
+  font-size: 23px;
+  font-weight: normal;
+}
+.ui-autocomplete-category.createteam:before {
+  content: ",";
+}
+.ui-autocomplete-category.applyteam:before {
+  content: "+";
+}
+.ui-menu-item {
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+  margin: 0 5px 0 25px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.ui-menu-item .ui-corner-all {
+  position: relative;
+  display: block;
+  height: 40px;
+  padding: 5px 5px 5px 50px;
+}
+.ui-menu-item .teamtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ui-menu-item .teamname {
+  line-height: 20px;
+  font-size: 14px;
+}
+.ui-menu-item .teamlocation {
+  line-height: 20px;
+  margin-left: 5px;
+  color: #808080;
+}
+.ui-menu-item .teamlocation .locationicon {
+  font-size: 25px;
+  padding-right: 3px;
+}
+.ui-menu-item .teamlogo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  background-size: 40px 40px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #888 inset;
+}
+.ui-menu-item .teamdesc {
+  height: 20px;
+  font-size: 12px;
+  color: #808080;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ui-state-hover {
+  background-color: #e9f2ff;
+}
+body {
+  background: transparent url("../images/lightbg.png") repeat top left;
+}
+.h10 {
+  height: 10px;
+}
+#signupbg {
+  position: absolute;
+  top: 0;
+  height: 700px;
+  width: 100%;
+  background: transparent url("../images/signupbg.png") center center no-repeat;
+}
+#signupbox {
+  position: absolute;
+  overflow: hidden;
+  top: 110px;
+  left: 50%;
+  width: 400px;
+  height: 410px;
+  margin: 0 0 0 -200px;
+  box-shadow: 0 0 10px #aaa;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+#signupbox:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 114px;
+  width: 123px;
+  background: transparent url("../images/signupformtag.png") left top no-repeat;
+  content: "";
+}
+#signupbox .signupboxheader {
+  position: relative;
+  height: 100px;
+  margin-top: 30px;
+  width: 100%;
+}
+#signupbox .signupboxheader .signupslogan {
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 21px;
+  text-align: center;
+  margin-top: 20px;
+}
+#signupbox .signupboxheader .signupdesc {
+  height: 30px;
+  line-height: 30px;
+  color: #808080;
+  text-align: center;
+}
+#signupbox .signupboxheader .signuptypeswticher {
+  position: absolute;
+  z-index: 1;
+  left: 60px;
+  bottom: 0px;
+  height: 40px;
+  width: 280px;
+}
+#signupbox .signupboxheader .signuptypeswticher .signuptype {
+  float: left;
+  height: 40px;
+  width: 138px;
+  font-size: 16px;
+  line-height: 40px;
+  text-align: center;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: #333;
+  text-decoration: none;
+}
+#signupbox .signupboxheader .signuptypeswticher .signuptype.active {
+  background-color: #f7f7f7;
+  border: 1px solid #d5d5d5;
+  border-bottom: 0;
+}
+#signupbox .partitionline {
+  position: absolute;
+  top: 130px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #d5d5d5;
+}
+#signupbox .signupboxform {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #d5d5d5;
+}
+#signupbox .signupboxform .formitem {
+  height: 60px;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #fff;
+}
+#signupbox .signupboxform .formitem:last-child {
+  border-bottom: 0;
+}
+#signupbox .signupboxform .formitem .inputlabel {
+  float: left;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-right: 1px solid #ededed;
+}
+#signupbox .signupboxform .formitem .inputlabel.texticon {
+  line-height: 60px;
+  font-size: 50px;
+  color: #999;
+  text-shadow: 2px 2px 0 #fff;
+}
+#signupbox .signupboxform .formitem .inputwrapper {
+  position: relative;
+  float: left;
+  height: 60px;
+  width: 330px;
+  border-left: 1px solid #fff;
+}
+#signupbox .signupboxform .formitem .inputwrapper.pair {
+  width: 165px;
+  border-right: 1px solid #ededed;
+}
+#signupbox .signupboxform .formitem .inputwrapper.pair input {
+  width: 145px;
+}
+#signupbox .signupboxform .formitem .inputwrapper.pair:last-child {
+  border-right: 0;
+  border-left: 1px solid #fff;
+}
+#signupbox .signupboxform .formitem .inputwrapper input {
+  border: 0;
+  margin: 20px;
+  width: 290px;
+  padding: 0;
+  font-size: 16px;
+  background: none;
+  outline: none;
+}
+#signupbox .signupboxform .formitem .inputwrapper input::-webkit-input-placeholder {
+  font-size: 16px;
+  color: #808080;
+}
+#signupbox .signupboxform .formitem .typetag {
+  position: absolute;
+  top: 18px;
+  right: -10px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #808080;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #dedede;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  box-shadow: 0 0 1px #aaa inset;
+}
+#signupbox .signupboxfooter {
+  position: relative;
+}
+#signupbox .signupboxfooter .checkbox {
+  float: left;
+  height: 16px;
+  width: 16px;
+  margin: 25px 10px 25px 20px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  box-shadow: 0 0 1px #ccc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+#signupbox .signupboxfooter .checkbox.checked:before {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  font-family: texticon;
+  font-size: 30px;
+  text-align: center;
+  color: #808080;
+  content: "W";
+}
+#signupbox .signupboxfooter .checkbox.highlight {
+  border: 1px solid #f00;
+}
+#signupbox .signupboxfooter .termservice {
+  float: left;
+  line-height: 16px;
+  height: 16px;
+  margin: 25px 0;
+  color: #808080;
+}
+#signupbox .signupboxfooter .signupbutton {
+  float: right;
+  margin: 20px 20px;
+  padding: 0 10px;
+  height: 30px;
+  min-width: 70px;
+  line-height: 30px;
+  text-align: center;
+}
+#congradulatebg {
+  position: absolute;
+  top: 0;
+  height: 700px;
+  width: 100%;
+  background: transparent url("../images/congradulatebg.png") center center no-repeat;
+}
+#congradulatebox {
+  position: absolute;
+  overflow: hidden;
+  top: 110px;
+  left: 50%;
+  width: 400px;
+  height: 270px;
+  margin: 0 0 0 -200px;
+  box-shadow: 0 0 10px #aaa;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+#congradulatebox:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 114px;
+  width: 123px;
+  background: transparent url("../images/signupformtag.png") left top no-repeat;
+  content: "";
+}
+#congradulatebox .congradulateslogan {
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 21px;
+  text-align: center;
+}
+#congradulatebox .congradulatedesc {
+  margin: 15px 30px;
+  line-height: 20px;
+  color: #5a5a5a;
+  text-align: center;
+}
+#congradulatebox #emailbutton {
+  display: block;
+  margin: 30px auto;
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+}

@@ -1,0 +1,378 @@
+//variables
+$darkbgdarklinecolor = #24221F
+$darkbglightlinecolor = #45423D
+$lightbgdarklinecolor = #EDEDED
+$lightbglightlinecolor = #FFF
+$darkbgdarktextcolor = #818181
+$darkbglighttextcolor = #f1f1f1
+$lightbglightcontentcolor = #FFF
+$lightbgdarkcontentcolor = #F7F7F7
+$titlecolor = #8C7E7E
+$timestampcolor = #999
+$placeholdercolor = gray
+
+//mixins
+darkbg()
+	background transparent url("../images/darkbg.png") repeat top left
+
+lightbg()
+	background transparent url("../images/lightbg.png") repeat top left
+
+border-radius($radius)
+	-webkit-border-radius $radius
+	-moz-border-radius $radius
+	border-radius $radius
+
+hidetextoverflow()
+	overflow hidden
+	text-overflow ellipsis
+	white-space nowrap
+
+insetavatarshadow()
+	box-shadow 0 0 3px #888 inset
+
+//button and icon
+.button
+	border 0
+	box-shadow 0 1px 1px rgba(0,0,0,0.3)
+	margin 0
+	border-radius(3px)
+	cursor pointer
+	&.blue
+		color #FFF
+		background-image -webkit-linear-gradient(bottom, #2380b4, #56a7db)
+		background-image -moz-linear-gradient(bottom, #2380b4, #56a7db)
+		background-image -o-linear-gradient(bottom, #2380b4,#56a7db)
+		background-image -ms-linear-gradient(bottom, #2380b4, #56a7db)
+		background-image linear-gradient(bottom, #2380b4, #56a7db)
+		text-shadow 0 1px 0 rgba(0,0,0,0.5)
+
+@font-face
+	font-family texticon
+	src: url('texticon.eot'); /* IE9*/
+	src: url('texticon.eot?#iefix') format('embedded-opentype'),url('texticon.woff') format('woff'),url('texticon.ttf')  format('truetype'),url('texticon.svg#svgFontName') format('svg');
+
+.texticon
+	font-family texticon
+
+
+//jquery-ui
+.ui-autocomplete 
+	max-height 260px
+	overflow-y hidden
+
+.ui-menu
+	width 339px
+	padding-bottom 5px
+	background-color $lightbglightcontentcolor
+	box-shadow 0 5px 5px #CCC
+	border-bottom-left-radius 3px
+	border-bottom-right-radius 3px
+
+.ui-autocomplete-category
+	position relative
+	display block
+	height 20px
+	padding 5px 5px 5px 30px
+	font-size 14px
+	font-weight bold
+
+	&:before
+		position absolute
+		top 5px
+		left 5px
+		height 20px
+		width 20px
+		line-height 20px
+		text-align center
+		font-family texticon
+		font-size 23px
+		font-weight normal
+	&.createteam:before
+		content ","
+	&.applyteam:before
+		content "+"
+
+
+.ui-menu-item
+	position relative
+	overflow hidden
+	height 50px
+	margin 0 5px 0 25px
+	border-radius(3px)
+
+	.ui-corner-all
+		position relative
+		display block
+		height 40px
+		padding 5px 5px 5px 50px
+
+	.teamtitle
+		hidetextoverflow()
+
+	.teamname
+		line-height 20px
+		font-size 14px
+
+	.teamlocation
+		line-height 20px
+		margin-left 5px
+		color $placeholdercolor
+		.locationicon
+			font-size 25px
+			padding-right 3px
+
+	.teamlogo
+		position absolute
+		top 5px 
+		left 5px
+		width 40px
+		height 40px
+		background-size 40px 40px
+		border-radius(3px)
+		insetavatarshadow()
+
+	.teamdesc
+		height 20px
+		font-size 12px
+		color $placeholdercolor
+		hidetextoverflow()
+
+.ui-state-hover
+	background-color rgb(233,242,255)
+
+//styles
+body
+	lightbg()
+.h10 
+	height 10px
+#signupbg
+	position absolute
+	top 0
+	height 700px
+	width 100%
+	background transparent url('../images/signupbg.png') center center no-repeat
+
+#signupbox
+	position absolute
+	overflow hidden
+	top 110px
+	left 50%
+	width 400px
+	height 410px
+	margin 0 0 0 -200px
+	box-shadow 0 0 10px #aaa
+	border-radius(5px)
+	background-color $lightbglightcontentcolor
+	&:before
+		position absolute
+		top 0
+		left 0
+		height 114px
+		width 123px
+		background transparent url('../images/signupformtag.png') left top no-repeat 
+		content ""
+
+	.signupboxheader
+		position relative
+		height 100px
+		margin-top 30px
+		width 100%
+		.signupslogan
+			display block
+			width 100%
+			height 30px
+			line-height 30px
+			font-size 21px
+			text-align center
+			margin-top 20px 
+		.signupdesc
+			height 30px
+			line-height 30px
+			color $placeholdercolor
+			text-align center
+		.signuptypeswticher
+			position absolute
+			z-index 1
+			left 60px
+			bottom 0px
+			height 40px
+			width 280px
+			.signuptype
+				float left
+				height 40px
+				width 138px
+				font-size 16px
+				line-height 40px
+				text-align center
+				border-top-left-radius 3px
+				border-top-right-radius 3px
+				color #333
+				text-decoration none
+				&.active
+					background-color $lightbgdarkcontentcolor
+					border 1px solid darken($lightbgdarklinecolor,10%)
+					border-bottom 0
+
+
+	.partitionline
+		position absolute
+		top 130px
+		left 0
+		right 0
+		border-top 1px solid darken($lightbgdarklinecolor,10%)
+
+	.signupboxform
+		background-color $lightbgdarkcontentcolor
+		border-bottom 1px solid darken($lightbgdarklinecolor,10%)
+
+		.formitem
+			height 60px
+			border-bottom 1px solid $lightbgdarklinecolor
+			border-top 1px solid $lightbglightlinecolor
+			&:last-child
+				border-bottom 0
+
+			.inputlabel
+				float left
+				width 60px
+				height 60px
+				line-height 60px
+				text-align center
+				border-right 1px solid $lightbgdarklinecolor
+				&.texticon
+					line-height 60px
+					font-size 50px
+					color lighten($placeholdercolor,20%)
+					text-shadow 2px 2px 0 white
+
+			.inputwrapper
+				position relative
+				float left
+				height 60px
+				width 330px
+				border-left 1px solid $lightbglightlinecolor
+				&.pair
+					width 165px
+					border-right 1px solid $lightbgdarklinecolor
+					input
+						width 145px
+					&:last-child
+						border-right 0
+						border-left 1px solid $lightbglightlinecolor
+				input
+					border 0
+					margin 20px
+					width 290px
+					padding 0
+					font-size 16px
+					background none
+					outline none			
+
+				input::-webkit-input-placeholder
+					font-size 16px
+					color $placeholdercolor
+
+			.typetag
+				position absolute
+				top 18px
+				right -10px
+				height 24px
+				line-height 24px
+				padding 0 5px
+				font-size 12px
+				color $placeholdercolor
+				text-shadow 0 1px 0 #fff
+				background-color darken($lightbgdarkcontentcolor,10%)
+				border-radius(3px)
+				box-shadow 0 0 1px #aaa inset
+	
+	.signupboxfooter
+		position relative
+		.checkbox
+			float left
+			height 16px
+			width 16px
+			margin 25px 10px 25px 20px
+			border 1px solid #aaa
+			background-color $lightbglightcontentcolor
+			box-shadow 0 0 1px #ccc
+			border-radius(2px)
+			cursor pointer
+			&.checked:before
+				position absolute
+				height 16px
+				width 16px
+				line-height 16px
+				font-family texticon
+				font-size 30px
+				text-align center
+				color gray
+				content "W"
+			&.highlight
+				border 1px solid red
+				
+		.termservice
+			float left
+			line-height 16px
+			height 16px
+			margin 25px 0
+			color $placeholdercolor
+		.signupbutton
+			float right
+			margin 20px 20px
+			padding 0 10px
+			height 30px
+			min-width 70px
+			line-height 30px
+			text-align center
+
+#congradulatebg
+	position absolute
+	top 0
+	height 700px
+	width 100%
+	background transparent url('../images/congradulatebg.png') center center no-repeat
+
+#congradulatebox
+	position absolute
+	overflow hidden
+	top 110px
+	left 50%
+	width 400px
+	height 270px
+	margin 0 0 0 -200px
+	box-shadow 0 0 10px #aaa
+	border-radius(5px)
+	background-color $lightbglightcontentcolor
+	&:before
+		position absolute
+		top 0
+		left 0
+		height 114px
+		width 123px
+		background transparent url('../images/signupformtag.png') left top no-repeat 
+		content ""
+
+	.congradulateslogan
+		display block
+		margin-top 30px
+		width 100%
+		height 30px
+		line-height 30px
+		font-size 21px
+		text-align center
+
+	.congradulatedesc
+		margin 15px 30px
+		line-height 20px
+		color darken($placeholdercolor,30%)
+		text-align center
+
+	#emailbutton
+		display block
+		margin 30px auto
+		width 200px
+		padding 10px
+		text-align center
+		text-decoration none

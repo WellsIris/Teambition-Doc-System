@@ -74,7 +74,7 @@ LEES_SHADE.prototype.blind = function(arg,jo){
 									
 							        }
 								}//end if arr
-							   else {
+							   else {  
 			   							var o = LEES_SHADE.toJquery(arguments[0]);
 										var d = {};
 										if(!jo){var jo ={};}
@@ -111,6 +111,10 @@ LEES_SHADE.prototype.blind = function(arg,jo){
 										 d.dani = jo.dani||this.u.dani||this.d.dani;
 			   						}
 									else{d.don = false;}
+									for(var va in d){
+										console.log(va+":"+d[va]+";");
+									}
+
 									var bg = document.createElement("div");
 
 									$(bg).css("position","absolute").css("top",d.stop).css("left",d.sleft).css("width",d.swid)

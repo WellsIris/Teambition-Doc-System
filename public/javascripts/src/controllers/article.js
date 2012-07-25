@@ -55,7 +55,8 @@ define([
 				$("#art_"+a.model.get("title")).append(a.el);
 			}
 			if(parseInt(i.model.get("order"))==1){
-				$(this._el).append(i.el);
+				$(this._el).append(i._el);
+				$("#"+i.model.get("title")).append(i.el);
 			}else{
 				$("#"+i.model.get("title")).append(i.el);
 			}

@@ -4,11 +4,14 @@
 */
 var models = require('../models'),
 	querystring = require("querystring"),
-	Article = models.Article;
+	Article = models.Article,
+	Document = models.Document,
+	Capter = models.Capter;
 
 
 exports.addarticle = function(req, res){
-	res.render('add_page', {layout:false, title: '撰写新文档' });
+	var author = req.param("author");
+	res.render('add_page', {layout:false, title: '撰写新文档',author:author });
 };
 exports.editarticle = function(req,res){
 	var o = {};
@@ -22,21 +25,15 @@ exports.editarticle = function(req,res){
 	res.render('edit_page', o);
 }
 exports.update = function(req,res){
-
+	console.log("update invoked");
 	var id = req.body.id;
 	var title = req.body.title;
 	var category = req.body.category;
 	var capter = req.body.capter;
 	var index = req.body.index||1;
 	var content = req.body.content;
-	var con = content.split("@@");
-	var simple_content = con[1];
-	var content = con[0];
-
-	console.log("id:"+id+"  titlt"+title+"   content:"+content);
-	console.log(Article.update);
+	var simple_content = req.body.simple_content;
 	Article.update({"_id":id},{$set:{
-
 			"title":title,
 			"category":category,
 			"capter":capter,
@@ -44,20 +41,17 @@ exports.update = function(req,res){
 			"content":content,
 			"simple_content":simple_content
 		}},false,false);
-
 	res.redirect('/');
 }
 exports.submitarticle = function(req, res){
 	article = new Article();
-	article.author = req.session.user;
+	article.author = req.body.author;
 	article.title = req.body.title;
 	article.category = req.body.category;
 	article.capter = req.body.capter;
 	article.index = req.body.index||1;
-	var content = req.body.content;
-	var con = content.split("@@");
-	article.simple_content = con[1];
-	article.content = con[0];
+	article.content = req.body.content;
+	article.simple_content = req.body.simple_content;
 	article.save();
 	res.redirect('/');
 };
@@ -69,26 +63,26 @@ exports.del = function(req, res){
 	res.redirect('/');
 };
 
-exports.getarticles = function(req, res){
+exports.getAll = function(req, res){
 	console.log("getarticles invoked");
-	var u = req.session.user;
-	if(u){
-		console.log("user is:"+u);
-		Article.find({author:u},function(err,docs){return ga(err,docs);});
-	}else{
-		console.log("user is a tourist");
-		Article.find({},function(err,docs){return ga(err,docs);});
-	}
-	function ga(err,docs){
-		res.writeHead(200, {"Content-Type": "application/json"});
-		
-		var articles = [];
-			for(var i = 0; i < docs.length; i++){
-		   articles.push(docs[i]);
+	var user = req.param("user");
+	var documents = [];
+	
+	Document.find({founder:user},function(err,docs){
+		for(var i = 0; i < docs.length; i++){
+		   documents.push(docs[i]);
 		}
-		var result = JSON.stringify(articles) || '';
-		
-		res.write(result);
-		res.end();									
-	}
+	});
+	Document.where(user).in("partners").exec(function(err,docs){
+		for(var i = 0; i < docs.length; i++){
+		   documents.push(docs[i]);
+		}
+	});
+
+	res.writeHead(200, {"Content-Type": "application/json"});
+	var result = JSON.stringify(documents) || '';
+	res.write(result);
+	res.end();
+
+	
 };

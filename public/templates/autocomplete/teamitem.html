@@ -1,0 +1,20 @@
+<a>
+	<div class="teamlogo" style="background-image:url('{{=it.logo_src}}');"></div>
+	<div class="teamtitle">
+		<span class="teamname">{{=it.value}}</span>
+		{{ if (it.location) { }}
+			<span class="teamlocation">
+				<span class="texticon locationicon">0</span>
+				{{=it.location}}
+			</span>
+		{{ } }}
+	</div>
+	<div style="clear:both;"></div>
+	<div class="teamdesc">
+		{{ if (it.desc) { }}
+			{{=it.desc}}
+		{{ } else { }} 
+			他们一心忙于工作
+		{{ } }}
+	</div>
+</a>

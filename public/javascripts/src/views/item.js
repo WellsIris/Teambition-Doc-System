@@ -15,11 +15,11 @@ define([
 		initialize:function(model){
 			model = model.model;
 			if(parseInt(model.get("order")) == 1){
-				this.template = doT.template(NavArtTemplate);	
-			}else{
-				this.template = doT.template(NavItemTemplate);
-				$(this.el).addClass("navigationitem");
+				this._template = doT.template(NavArtTemplate);
 			}
+			this.template = doT.template(NavItemTemplate);
+			$(this.el).addClass("navigationitem");
+			
 			
 			this.model.on("change",this.render,this);
 			if(!this.model.views){
@@ -30,6 +30,11 @@ define([
 
 		},
 		render:function(){
+
+			if(this._template){
+				this._el = document.createElement("div");
+				$(this._el).html(this._template(this.model.toJSON()));
+			}
 			$(this.el).html(this.template(this.model.toJSON()));
 
 			if(!$(this.el).hasClass("navigationitem")){

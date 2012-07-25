@@ -4,87 +4,121 @@ define([
 	'backbone',
 	'doT',
 	'LEES_SHADE',
-	'text!../../../templates/user/logandreg.html',
 	'text!../../../templates/article/editor.html',
+	'text!../../../templates/article/doc-create.html',
 	'UserModel',
 	'UserView'
-],function ($,_, Backbone,doT,LEES_SHADE,logandregTemplate, EditorTemplate ,UserModel,UserView){
+],function ($,_, Backbone,doT,LEES_SHADE, EditorTemplate,DocCreateTemp ,UserModel,UserView){
 	var AppUser = Backbone.View.extend({
-		el:$("#header"),
+		el:$("#main-left-header"),
 		initialize:function(){
 			console.log("appuser is initialized");
+			var self = this;
 			this.model = doc_sys.user;
 			this.model.set("user","");
 			if(doc_sys.login_user != ""){
-					this.model.set("user",doc_sys.login_user);
+				self.model.set("user",doc_sys.login_user);
 			}
-			this.render(this.model);
+			self.render(self.model);
 
 			
-
-			if(this.model.get("user") == ""){
-				_.bindAll(this, 'login', 'regis','getData');
-				this.temp = doT.template(logandregTemplate);
-				var lg = new LEES_SHADE();
-				lg.blind($("body"),{
-	            "evtobj":$("#login"),
-		        "don":true,
-				"evttype":"click",
-				"sani":true,
-				"dani":true,
-	            "html":this.temp({name:"登陆",title:"欢迎登陆",id:"logsub"})
-				});
-				var rg = new LEES_SHADE();
-				rg.blind($("body"),{
-	           "evtobj":$("#regis"),
-		        "don":true,
-				"evttype":"click",
-				"sani":true,
-				"dani":true,
-	            "html":this.temp({name:"注册",title:"十秒注册",id:"regsub"})
-				});
-				$("#logsub").click(this.login);
-				$("#regsub").click(this.regis);
-			}else{
-				console.log("user existed.");
-				
-
-			}
 		},
-		events:{
-			"click #logsub":"login",
-			"click #regsub":"regis"
-		},
+		
 		render:function(model){
 			console.log("appuser is rendered");
 	        var view = new UserView(model);
 			$(this.el).append(view.render().el);
-		},
-		login:function(){
-			console.log("login is invoked");
-			var data = this.getData("logsub");
-			Backbone.sync("create",null,{url:"/login?user="+data.user+"&pass="+data.pass});
-			//?user="+data.user+"&pass="+data.pass
-		},
-		regis:function(){
-			console.log("register is invoked");
-		},
-		getData:function(id){
-			var prev = $("#"+id);
-			var c = 2;
-			var o = {user:"",pass:""};
-			var a =[];
-			prev = prev.prev();
-			while(c>0){
-				if(prev.hasClass("shade_dialog_input")){
-					a.push(prev.val());
-					c--;
-				}
-				prev = prev.prev();
+
+			var dcb = $("#docCreateBtn");
+			if(doc_sys.login_user != ""){
+				console.log("user existed and dcb is "+$(dcb).html());
+				var aaa = doT.template(DocCreateTemp)({founder:doc_sys.login_user});
+				console.log(aaa);
+				var dc = new LEES_SHADE();
+				dc.blind($("body"),{
+					evtobj:dcb,
+					don:true,
+					dwid:500,
+					dhei:600,
+					html:aaa,
+					callprev:function(b,d){
+						$(d).css("overflow","scroll");
+					}
+				});
+
+				$("#addPartner").click(function(){
+					var input = document.createElement("input");
+					$(input).attr("type","text").addClass("input_partner");
+					$("#partners").prepend(input);
+				});
+				$("#addArt").click(function(){
+					var out = document.createElement("div");
+					$(out).addClass("articleArea");
+					var input = document.createElement("input");
+					$(input).attr("type","text").addClass("input_article").attr("placeholder","文章名");
+					var add = document.createElement("div");
+					var add_icon = document.createElement("div");
+					$(add_icon).addClass("icons_add float_l");
+					var add_text = document.createElement("div");
+					$(add_text).addClass("float_l").html("添加章节");
+					$(add).addClass("btn_a right_tools").addClass("addcap");
+					
+
+					var caps = document.createElement("div");
+					$(caps).addClass("capters");
+					$(add).click(function(){
+						var input = document.createElement("input");
+						$(input).attr("type","text").addClass("input_capter").attr("placeholder","章节名");
+						$(caps).append(input);
+					});
+					$(add).append(add_icon).append(add_text);
+					$(out).append(input).append(add).append(caps);
+					$("#outline").append(out);
+				});
+
+				$("#docCreateSubmit").click(function(){
+					$("#doc-create-form").submit();
+				});
+
+				$("#doc-create-form").submit(function(){
+					var partners = $(".input_partner");
+					var p_text = [];
+					for(var i=0;i<partners.length;i++){
+						var a = $(partners[i]).val();
+						if(a !=""){
+							p_text.push(a);
+						}
+					}
+					p_text = p_text.join(",");
+
+					var arts = $(".input_article");
+					var a_text = [];
+					for(var i=0;i<arts.length;i++){
+						var a  = $(arts[i]).val();
+						var c = getData(arts[i]);
+						a_text.push([a,c].join("#"));
+					}
+					a_text = a_text.join("@");
+
+					$("input[name='partners']").val(p_text);
+					$("input[name='outline']").val(a_text);
+
+					function getData(obj){
+						var caps = $(obj).next().next().children();
+
+						var text = [];
+						for(var i=0;i<caps.length;i++){
+							var a = $(caps[i]).val();
+							if(a != ""){
+								text.push(a); 
+							}
+						}
+						text = text.join(",");
+						return text;
+					}
+
+				});
 			}
-			o.user= a[1];
-			o.pass=a[0];
-			return o;
 		}
 });
 
