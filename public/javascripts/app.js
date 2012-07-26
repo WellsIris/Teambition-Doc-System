@@ -75,7 +75,7 @@ define([
 			doc_sys.appuser = new AppUser;
 			doc_sys.appdoc = new AppDoc;
 			
-			//doc_sys.articles = new ArticleCollection;
+			doc_sys.atls = new ArticleCollection;
 
 			//doc_sys.apparticle = new AppArticle;
 		}

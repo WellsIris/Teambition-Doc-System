@@ -6,9 +6,10 @@ define([
 	'LEES_SHADE',
 	'ArticleModel',
 	'ArticleCollection',
+	'ArticleController',
 	'text!../../../templates/article/doc.html',
 	'text!../../../templates/article/doc-create.html'
-],function ($, _, Backbone, doT,LEES_SHADE,ArticleModel,ArticleCollection,DocTemplate,DocCreateTemp){
+],function ($, _, Backbone, doT,LEES_SHADE,ArticleModel,ArticleCollection,AppArticle,DocTemplate,DocCreateTemp){
 	var DocView = Backbone.View.extend({
 	tagName:"li",
 	events:{
@@ -70,8 +71,12 @@ define([
 	go:function(ob){
 		var self = this;
 		$(ob).click(function(){
+			doc_sys.doc_id = self.model.get("_id");
+			doc_sys.outline = self.model.get("outline");
+			doc_sys.appatl = new AppArticle;
 			self.resize();
 			self.showLeft();
+
 		});
 	},
 	resize:function(){
@@ -96,7 +101,8 @@ define([
 		var width = document.documentElement.clientWidth;
 		var self = this;
 		var end_w = width*0.2;
-		$("#mainRight").html('<div class="h20"></div><div class="btn_b headBtn_l"><a href="/article/add">创建新文章</a></div>')
+		var href = "/article/add?user="+doc_sys.login_user+"&id="+doc_sys.doc_id;
+		$("#mainRight").html('<div class="h20"></div><div class="btn_b headBtn_l"><a href='+href+'>创建新文章</a></div>')
 					   .css("right",-end_w);
 		for(var i=0;i<len;i++){
 			var a = this.renderArticle(arts[i],ol[arts[i]]);

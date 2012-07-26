@@ -9,10 +9,8 @@ mongoose.connect('mongodb://localhost/tbdocdb', function(err){
 
 // models
 require('./article');
-require('./user');
 require('./document');
 require('./capter');
 exports.Article = mongoose.model('Article');
-exports.User = mongoose.model('User');
 exports.Document = mongoose.model('Document');
 exports.Capter = mongoose.model('Capter');

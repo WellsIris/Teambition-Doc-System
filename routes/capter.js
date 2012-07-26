@@ -9,9 +9,11 @@ var models = require('../models'),
 	Capter = models.Capter;
 
 
-exports.addarticle = function(req, res){
-	var author = req.param("author");
-	res.render('add_page', {layout:false, title: '撰写新文档',author:author });
+exports.add = function(req, res){
+	var t = req.param("t");
+	var cap = req.param("cap")||"";
+	var id = req.param("id");
+	res.render('add_cap', {layout:false, name: '撰写章节:'+t,title:t,cap:cap,doc_id:id });
 };
 exports.editarticle = function(req,res){
 	var o = {};
@@ -43,14 +45,59 @@ exports.update = function(req,res){
 		}},false,false);
 	res.redirect('/');
 }
-exports.submitarticle = function(req, res){
-	capter = new Capter();
-	capter.author = req.body.author;
-	capter.title = req.body.title;
-	capter.index = req.body.index||1;
-	capter.detail_content = req.body.detail_content;
-	capter.simple_content = req.body.simple_content;
-	capter.save();
+exports.submit = function(req, res){
+	
+	var doc_id = req.body.doc_id;
+	var title = req.body.title;
+	Article.find({"doc_id":doc_id,"title":title},function(err,atl){
+		var caps = atl[0].capters;
+		var c = findIn(caps,req.body.capter);
+		console.log("c:"+c);
+		if(c){
+			c.title = req.body.capter;
+			c.detail_content = req.body.detail_content;
+			c.simple_content = req.body.simple_content;
+			Article.update({"doc_id":doc_id,"title":title},{$set:{
+				"capters":atl[0].capters
+			}},false,false);
+		}else{
+			var c  = new Capter();
+			c.title = req.body.capter;
+			c.detail_content = req.body.detail_content;
+			c.simple_content = req.body.simple_content;
+			c.save();
+			atl[0].capters.push(c);
+			Article.update({"doc_id":doc_id,"title":title},{$set:{
+				"capters":atl[0].capters
+			}},false,false);
+			Document.find({"_id":doc_id},function(err,doc){
+				console.log(doc);
+				var atls = doc[0].outline.split("@");
+
+				var i=0;
+				while(atls[i].split("#")[0] != title){
+					i++;
+				}
+				atls[i] += ","+c.title;
+				var atls = atls.join("@");
+				console.log("new outline:"+atls);
+				
+				Document.update({"_id":doc_id},{$set:{
+				"outline":atls
+				}},false,false);
+			});
+		}
+
+	});
+	function findIn(arr,str){
+		var len = arr.length;
+		for(var i=0;i<len;i++){
+			if(arr[i]["title"] == str){
+				return arr[i];
+			}
+		}
+		return false;
+	}
 	res.redirect('/');
 };
 
@@ -61,26 +108,3 @@ exports.del = function(req, res){
 	res.redirect('/');
 };
 
-exports.getAll = function(req, res){
-	console.log("getarticles invoked");
-	var user = req.param("user");
-	var documents = [];
-	
-	Document.find({founder:user},function(err,docs){
-		for(var i = 0; i < docs.length; i++){
-		   documents.push(docs[i]);
-		}
-	});
-	Document.where(user).in("partners").exec(function(err,docs){
-		for(var i = 0; i < docs.length; i++){
-		   documents.push(docs[i]);
-		}
-	});
-
-	res.writeHead(200, {"Content-Type": "application/json"});
-	var result = JSON.stringify(documents) || '';
-	res.write(result);
-	res.end();
-
-	
-};

@@ -6,6 +6,7 @@ var ArticleSchema = new Schema({
 	author:String,
 	title: String,
 	capters:[Capter],
+	doc_id:String,
 	create_at: {type: Date, default: Date.now}
 });
 

@@ -10,8 +10,9 @@ var models = require('../models'),
 
 
 exports.addarticle = function(req, res){
-	var author = req.param("author");
-	res.render('add_page', {layout:false, title: '撰写新文档',author:author });
+	var author = req.param("user");
+	var doc_id = req.param("id");
+	res.render('add_art', {layout:false, title: '撰写新文档',author:author,doc_id:doc_id });
 };
 exports.editarticle = function(req,res){
 	var o = {};
@@ -44,15 +45,29 @@ exports.update = function(req,res){
 	res.redirect('/');
 }
 exports.submitarticle = function(req, res){
-	article = new Article();
-	article.author = req.body.author;
-	article.title = req.body.title;
-	article.category = req.body.category;
-	article.capter = req.body.capter;
-	article.index = req.body.index||1;
-	article.content = req.body.content;
-	article.simple_content = req.body.simple_content;
-	article.save();
+	var a = new Article();
+	a.author = req.body.author;
+	a.title = req.body.title;
+	a.doc_id = req.body.doc_id;
+	var c = new Capter();
+	c.title = req.body.capter;
+	c.detail_content = req.body.detail_content;
+	c.simple_content = req.body.simple_content;
+	c.save();
+	a.capters = [];
+	a.capters.push(c);
+	a.save(function(err){console.log(err)});
+	var ol;
+	Document.find({"_id":a.doc_id},function(err,doc){
+		
+		ol = doc[0].outline+"@"+a.title+"#"+c.title;
+		Document.update({"_id":a.doc_id},{$set:{
+		"outline":ol
+		}},false,false);
+	});
+	
+
+	
 	res.redirect('/');
 };
 
@@ -65,24 +80,21 @@ exports.del = function(req, res){
 
 exports.getAll = function(req, res){
 	console.log("getarticles invoked");
-	var user = req.param("user");
-	var documents = [];
+	var doc_id = req.param("doc_id");
+	var atls = [];
 	
-	Document.find({founder:user},function(err,docs){
-		for(var i = 0; i < docs.length; i++){
-		   documents.push(docs[i]);
+	Article.find({doc_id:doc_id},function(err,as){
+		for(var i = 0; i < as.length; i++){
+		   atls.push(as[i]);
 		}
+		res.writeHead(200, {"Content-Type": "application/json"});
+		var result = JSON.stringify(atls) || '';
+		res.write(result);
+		console.log("result:"+result);
+		res.end();
 	});
-	Document.where(user).in("partners").exec(function(err,docs){
-		for(var i = 0; i < docs.length; i++){
-		   documents.push(docs[i]);
-		}
-	});
-
-	res.writeHead(200, {"Content-Type": "application/json"});
-	var result = JSON.stringify(documents) || '';
-	res.write(result);
-	res.end();
+	
+	
 
 	
 };

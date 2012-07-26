@@ -7,23 +7,23 @@ define([
 	'ItemView'
 ],function ($, _, Backbone, doT, ArticleView , ItemView ){
 	var AppView = Backbone.View.extend({
-		el:$("#content_ul"),
-		_el:$("#navigationlist"),
+		el:$("#mainMiddle"),
 		initialize:function(){
 			var self = this;
-			this.collection = doc_sys.articles;
-			doc_sys.articles.bind("sync",this.showAll,this);
-			doc_sys.articles.bind("reset",this.showAll,this);
+			this.collection = doc_sys.atls;
+			doc_sys.atls.bind("sync",this.showAll,this);
+			doc_sys.atls.bind("reset",this.showAll,this);
 			this.collection.fetch({
 				success:function(){
 					console.log("fetch success");
 					var that = self.collection.models;
-					self.collection.sortByIndex();
+					self.collection.sortByOutline();
 					self.render();
 				},
 				error:function(){
 					console.log("error");
-				}
+				},
+				url:'/articles?doc_id='+doc_sys.doc_id
 			});
 		},
 		events: {
@@ -43,28 +43,15 @@ define([
 			var aView = new ArticleView({
 				model: model
 			});
-			var iView = new ItemView({
-				model:model
-			});
+			
 			var a = aView.render();
-			var i = iView.render();
-			if(parseInt(a.model.get("order"))==1){
-				$(this.el).append(a._el);
-				$("#art_"+a.model.get("title")).append(a.el);
-			}else{
-				$("#art_"+a.model.get("title")).append(a.el);
-			}
-			if(parseInt(i.model.get("order"))==1){
-				$(this._el).append(i._el);
-				$("#"+i.model.get("title")).append(i.el);
-			}else{
-				$("#"+i.model.get("title")).append(i.el);
-			}
+			
+			$(this.el).append(a.el);
 			
 		},
 		showAll:function(){
 			console.log("showAll is invoked");
-			doc_sys.articles.each(this.showOne);
+			doc_sys.atls.each(this.showOne);
 		},
 		editArticle:function(){
 		}

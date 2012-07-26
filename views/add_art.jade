@@ -1,0 +1,46 @@
+html
+	head
+		link(rel='stylesheet', href='/stylesheets/reset.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/lees.css')
+
+	body
+		div.commonbg
+			h1=title
+			section#editor
+				form(action="/article/add",method="post")
+					label 文章标题:
+					input(type="text",name="title")
+					div.clear
+					input(type="hidden",name="author",value=author)
+					input(type="hidden",name="doc_id",value=doc_id)
+					label 章节标题:
+					input(type="text",name="capter")
+					div.clear
+					textarea(name="detail_content",style="visibility:hidden;height:0",id="detail_content")
+					textarea(name="simple_content",style="visibility:hidden;height:0",id="simple_content")
+					div#contentArea
+						div.h30
+						div#codeBtn CODE
+							div#modeSelection
+								div.modeBtn javascript
+								div.modeBtn css
+								div.modeBtn java
+								div.modeBtn html
+								div.modeBtn php
+								div.modeBtn perl
+								div.modeBtn ruby
+								div.modeBtn python
+								div.modeBtn xml
+								div.clear
+						div.clear
+						textarea.text_part(name="text_part") 
+					button
+						a(href="/") 取消
+					button(type="submit",id="submit")
+						span 提交文档
+					div.clear
+
+
+		script(data-main='/javascripts/editor.js', src='/javascripts/libs/require/require.js')
+		

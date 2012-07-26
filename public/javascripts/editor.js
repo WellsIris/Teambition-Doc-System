@@ -78,7 +78,7 @@ define(function(require, exports, module) {
     });
 
   
-
+    //for codeBtn behavior
     $("#codeBtn").hover(function(){
         $("#modeSelection").css("display","block");
         $(this).css({"border":"1px solid #aaa","background":"#f7f7f7","border-radius":"5px"});
@@ -88,6 +88,7 @@ define(function(require, exports, module) {
 
     });
 
+    // for modeBtn behavior
     $(".modeBtn").hover(function(){
         $(this).css("color","#666");
     },function(){
@@ -112,6 +113,7 @@ define(function(require, exports, module) {
         
     });
 
+    // resize the editor to make all content visible
     function resize(obj,_obj){
             var id = $(obj).attr("id");
             var HEIGHT = 17;
@@ -123,7 +125,7 @@ define(function(require, exports, module) {
     }
     
 
-
+    // when srcoll , make sure that code button is visible
     window.onscroll = function(){
         console.log(document.body.scrollTop);
         if(document.body.scrollTop >= 400){
@@ -136,6 +138,8 @@ define(function(require, exports, module) {
         }
     }
 
+    // for edit page , if maineditor is already existed ,
+    // render them
    if($(".maineditor")[0]){
         console.log("maineditor existed");
         var es = $(".maineditor");
@@ -161,7 +165,6 @@ define(function(require, exports, module) {
             cs.push($(code[i]).html());
         }
         var codes = cs.join("$code$");
-        console.log(codes);
 
         var lines = [];
         for(var va in docs){
@@ -169,7 +172,6 @@ define(function(require, exports, module) {
             lines.push(docs[va].getAllLines().join("\n")+"$length$"+len);
         }
         var lines = lines.join("$line$");
-        console.log(lines);
        
         var text = $(".text_part");
         var texts = [];
@@ -180,12 +182,13 @@ define(function(require, exports, module) {
 
         langs = langs.join("$lang$");
 
-        var ta = $("#content");
+        var ta = $("#detail_content");
     	ta.html([texts,codes].join("$part$"));
         var _ta = $("#simple_content");
         _ta.html([lines,langs].join("$part$"));
         
         console.log(ta.html());
+        console.log(_ta.html());
     	$("#contentArea").remove();
     }); 
 

@@ -24,7 +24,7 @@ define([
 		console.log("articleview initialized");
 		var model = model.model;
 	
-		this.template = doT.template(CapterTemplate);
+		this.template = doT.template(ArticleTemplate);
 		$(this.el).addClass("art_content");
 		
 		this.model.on('change', this.render, this);
@@ -38,34 +38,16 @@ define([
 		var self = this;
 		self.mo = this.model.toJSON();
 		self.mo.create_at=self.mo.create_at.substr(0,19).replace("T","&nbsp;");
-		if(doc_sys.login_user!=""){
-			self.mo = _.extend(self.mo,{user:doc_sys.login_user});
-		}
-		if(self.mo.order == 1){
-			self._temp = doT.template(ArticleTemplate);
-			this._el = document.createElement("li");
-			$(this._el).html(self._temp(self.mo));
-		}
-		var data = this.data = self.analysis(self.mo.content,self.mo.simple_content);
-		var result = [];
-		var len = data.texts.length;
-		result.push('<div class="cap_text">'+data.texts[0]+'</div>');
-		for(var i=0;i<len-1;i++){
-			var list = self.makeNumList(data.lens[i]);
-			var code = '<div class="cap_code"><div class="numList">'+list+'</div>'
-					  +'<div class="lineList">'+data.codes[i]+'</div>'
-					  +'<div class="clear"></div></div>';
-			var text = '<div class="cap_text">'+data.texts[i]+'</div>';
-			result.push(code);
-			result.push(text);
-		}
-
-		result = result.join("");
-		console.log(result);
-		self.mo = _.extend(self.mo,{result:result});
-		$(this.el).html(this.template(self.mo));
 		
-
+		
+		$(this.el).html(this.template(this.mo));
+		
+		var c = $(this.el).find("ul.capterList");
+		var caps = this.mo.capters;
+		var len = caps.length;
+		for(var i=0;i<len;i++){
+			$(c).append(this.makeCap(caps[i]));
+		}
 
 		return this;
 	},
@@ -100,6 +82,62 @@ define([
 			self.content.slideUp();
 		});
 	},
+	makeCap:function(Cap){
+		var t = document.createElement("h4");
+		var t_a = document.createElement("a");
+		$(t_a).attr("id",Cap.title).html(Cap.title);
+		$(t).append(t_a);
+		var l = document.createElement("li");
+		var c = document.createElement("div");
+		$(c).addClass("article_content");
+		$(l).append(t).append(c);
+
+		if(Cap.detail_content == ""||typeof Cap.detail_content == "undefined"){
+			var id = this.model.get("doc_id");
+			var title = this.model.get("title");
+			var cap = Cap.title;
+			var href = '/capter/add?t='+title+'&id='+id+'&cap='+cap;
+			var btn = document.createElement("a");
+			$(btn).attr("href",href).addClass("btn_a").css("color","#666");
+			var icon = document.createElement("div");
+			$(icon).addClass("icons_add float_l");
+			var text = document.createElement("div");
+			$(text).addClass("float_l").html("点此编辑该章节");
+			var clear = document.createElement("div");
+			$(clear).addClass("clear");
+			$(btn).append(icon).append(text).append(clear);
+			$(c).append(btn);
+		}else{
+			var src = this.analysis(Cap.detail_content,Cap.simple_content);
+			var texts = src.texts;
+			var codes = src.codes;
+			var lens = src.lens;
+			var len = codes.length;
+			for(var i=0;i<len;i++){
+				$(c).append(this.makeText(texts[i]))
+					.append(this.makeCode(codes[i],lens[i]));
+			}
+			$(c).append(this.makeText(texts[len]));
+		}
+		return l;
+	},
+	makeText:function(text){
+		var t = document.createElement("div");
+		$(t).addClass("cap_text").html(text);
+		return t;
+	},
+	makeCode:function(code,num){
+		var c = document.createElement("div");
+		$(c).addClass("cap_code");
+		var nl = document.createElement("div");
+		$(nl).addClass("numList").html(this.makeNumList(num));
+		var ll = document.createElement("div");
+		$(ll).addClass("lineList").html(code);
+		var clear = document.createElement("div");
+		$(clear).addClass("clear");
+		$(c).append(nl).append(ll).append(clear);
+		return c;
+	},
 	makeNumList:function(num){
 		console.log("num:"+num);
 		var result="" ;
@@ -110,7 +148,9 @@ define([
 		return result;
 	},
 	analysis:function(con,sim){
+		
 		var parts = con.split("$part$");
+		console.log(con);
 		var texts = parts[0].split("$text$");
 		var codes = parts[1].split("$code$");
 
