@@ -36,6 +36,52 @@ define([
 			_.each(this.collection.models, function (model, index){
 				self.showOne(model);
 			});
+
+			var cs = $(".capterList li");
+			
+			var len = cs.length;
+			var oss = [];
+			for(var i=0;i<len;i++){
+				var h = $(cs[i]).offset().top-25;
+				oss.push(h);
+			}
+			console.log(oss);
+			window.onscroll = function(){
+				if(window.doc_sys.isClick){
+					return ;
+				}
+				var len = oss.length -1;
+				var top = document.documentElement.scrollTop;
+				
+				var items = $(".main-right-capter");
+				for(var i=0;i<len;i++){
+					if(top>=oss[i]&&top<oss[i+1]){
+						if(items[i+1]){
+							$(items[i+1]).css("background","#eee")
+										 .css("color","#aaa")
+										 .removeClass("hoverd")
+									 	 .find(".main-right-tool")
+									 	 .css("display","none");
+							
+						}
+						if(items[i-1]){
+							$(items[i-1]).css("background","#eee")
+										 .css("color","#aaa")
+										 .removeClass("hoverd")
+									 	 .find(".main-right-tool")
+									 	 .css("display","none");
+						}
+						$(items[i]).css("background","#ddd")
+								   .css("color","#666")
+								   .addClass("hoverd")
+							 	   .find(".main-right-tool")
+							 	   .css("display","block");
+						return ;
+					}
+
+				}
+			}
+
 			
 		},
 		showOne:function(model){

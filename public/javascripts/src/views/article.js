@@ -48,7 +48,7 @@ define([
 		for(var i=0;i<len;i++){
 			$(c).append(this.makeCap(caps[i]));
 		}
-
+		
 		return this;
 	},
 	delete:function(){
@@ -100,7 +100,7 @@ define([
 			var btn = document.createElement("a");
 			$(btn).attr("href",href).addClass("btn_a").css("color","#666");
 			var icon = document.createElement("div");
-			$(icon).addClass("icons_add float_l");
+			$(icon).addClass("icons_add_b float_l");
 			var text = document.createElement("div");
 			$(text).addClass("float_l").html("点此编辑该章节");
 			var clear = document.createElement("div");
@@ -127,6 +127,9 @@ define([
 		return t;
 	},
 	makeCode:function(code,num){
+		if(code == ""){
+			return "";
+		}
 		var c = document.createElement("div");
 		$(c).addClass("cap_code");
 		var nl = document.createElement("div");
@@ -136,6 +139,7 @@ define([
 		var clear = document.createElement("div");
 		$(clear).addClass("clear");
 		$(c).append(nl).append(ll).append(clear);
+
 		return c;
 	},
 	makeNumList:function(num){

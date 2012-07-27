@@ -54,7 +54,7 @@ define([
 
 
 		window.doc_sys = {};	
-		
+		doc_sys.docCache = [];
 			
 		function init(){
 			if(doc_sys.login_user != ""){

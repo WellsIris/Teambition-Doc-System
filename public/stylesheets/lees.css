@@ -133,8 +133,11 @@ h3 { font-size: 22px; margin: 0; padding:10px 0;color: #02b6d6; font-weight: nor
 .ace_string{
     color:green;
 }
-.ace_keyword,.ace_function{
+.ace_keyword,.ace_type{
     color:blue;
+}
+.ace_function{
+    color:#333;
 }
 .ace_comment{
     color:#999;

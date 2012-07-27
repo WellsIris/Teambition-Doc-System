@@ -69,15 +69,71 @@ body {
 .float_r {
   float: right;
 }
-.icons_add {
+.icons_add_b {
+  display: block;
   width: 16px;
   height: 16px;
   background: url("../images/icons_black.png") -32px -128px;
 }
 .icons_left {
+  display: block;
   width: 16px;
   height: 16px;
   background: url("../images/icons_black.png") -48px -192px;
+}
+.icons_up_b {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_black.png") 0px -48px;
+}
+.icons_down_b {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_black.png") -64px -48px;
+}
+.icons_delete_b {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_black.png") -176px -96px;
+}
+.icons_edit_b {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_black.png") -64px -112px;
+}
+.icons_add_y {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_yellow.png") -32px -128px;
+}
+.icons_up_y {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_yellow.png") 0px -48px;
+}
+.icons_down_y {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_yellow.png") -64px -48px;
+}
+.icons_delete_y {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_yellow.png") -176px -96px;
+}
+.icons_edit_y {
+  width: 16px;
+  height: 16px;
+  display: block;
+  background: url("../images/icons_yellow.png") -64px -112px;
 }
 .right_tools {
   position: absolute;
@@ -193,12 +249,13 @@ body {
 .doc-right {
   float: right;
 }
-.doc-tittle {
+.doc-title {
   line-height: 30px;
   font-size: 21px;
   font-weight: bold;
   color: #02b6d6;
   margin: 0;
+  cursor: pointer;
 }
 .doc-desc {
   margin: 5px 0;
@@ -288,7 +345,7 @@ input {
 }
 #mainMiddle {
   width: 60%;
-  position: absolute;
+  position: relative;
   right: 20%;
   top: 0;
   left: 20%;
@@ -301,6 +358,7 @@ input {
   top: -5px;
   bottom: -5px;
   z-index: 3;
+  overflow: scroll;
 }
 .main-right-out {
   width: 100%;
@@ -310,20 +368,32 @@ input {
 .main-right-article {
   width: 100%;
   color: #666;
-  text-align: center;
   font-size: 16px;
   line-height: 16px;
-  padding: 3px;
+  text-align: center;
+  padding: 5px;
   cursor: pointer;
+}
+.main-right-article-text {
+  margin-left: 25%;
+  float: left;
+}
+.main-right-tool {
+  margin: 5px auto;
+  display: none;
 }
 .main-right-capter {
   color: #aaa;
   width: 100%;
-  text-align: center;
   font-size: 14px;
   line-height: 14px;
+  text-align: center;
   padding: 3px;
   cursor: pointer;
+}
+.main-right-capter-text {
+  float: left;
+  margin-left: 30%;
 }
 .desc {
   text-align: center;
@@ -439,7 +509,7 @@ box-shadow 02px2pxrgba(0,
 .cap_code {
   position: relative;
   width: 98%;
-  margin: 20px auto;
+  margin: 10px auto;
   background-color: #fff;
   overflow-y: hidden;
   border: 1px solid #e0e0e0;

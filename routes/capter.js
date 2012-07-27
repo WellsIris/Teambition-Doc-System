@@ -104,6 +104,7 @@ exports.submit = function(req, res){
 exports.del = function(req, res){
 	console.log("capter.del is invoked");
 	var id=req.body.id||req.params.id;
+	var title = req.body.a||req.param("a");
 	Capter.remove({"_id":id},function(err){console.log("error:"+err);});
 	res.redirect('/');
 };
