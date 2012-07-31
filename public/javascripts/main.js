@@ -23,6 +23,8 @@ require.config({
 		UserController    : 'src/controllers/user',
 		DocController	  : 'src/controllers/doc',
 		ArticleController : 'src/controllers/article',
+		WMD				  : 'libs/wmd/wmd',
+		Showdown		  : 'libs/wmd/showdown',
 		Ace 			  : 'ace',
 		JsMode			  : 'libs/ace/mode/javascript',
 		Fixold			  : 'libs/ace/lib/fixoldbrowsers',

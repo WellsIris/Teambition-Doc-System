@@ -10,9 +10,48 @@ var models = require('../models'),
 
 
 exports.addarticle = function(req, res){
-	var author = req.param("user");
-	var doc_id = req.param("id");
-	res.render('add_art', {layout:false, title: '撰写新文档',author:author,doc_id:doc_id });
+	console.log("add art invoked");
+	var author = req.param("a");
+	var doc_id = req.param("d");
+	var title = req.param("t");
+	var content = req.param("c");
+	var html = req.param("h");
+	console.log(html+"content:"+content);
+	var id = req.param("i");
+	console.log("id"+id);
+	if(id !=""&&typeof id != "undefined"){
+		Article.update({_id:id},{$set:{
+			title:title,
+			content:content,
+			html:html
+		}},false,false);
+		res.writeHead(200, {"Content-Type": "application/text"});
+		res.write("update success");
+		res.end();
+	}else{
+		var a = new Article();
+		a.author = author;
+		a.doc_id = doc_id;
+		a.title= title;
+		a.content = content;
+		a.html = html;
+		Document.find({_id:doc_id},function(err,doc){
+			var index = doc[0].atls;
+			a.index = index;
+			console.log(a);
+			a.save();
+			Document.update({_id:doc_id},{$set:{
+				atls:index+1
+			}},false,false);
+			res.writeHead(200, {"Content-Type": "application/json"});
+			
+			res.write("add success");
+			res.end();
+			});
+		
+		
+	}
+	
 };
 exports.editarticle = function(req,res){
 	var o = {};
@@ -81,6 +120,7 @@ exports.del = function(req, res){
 exports.getAll = function(req, res){
 	console.log("getarticles invoked");
 	var doc_id = req.param("doc_id");
+	console.log(doc_id);
 	var atls = [];
 	
 	Article.find({doc_id:doc_id},function(err,as){

@@ -51,9 +51,6 @@ app.post('/article/put', routes.article.update);
 app.post('/article/add', routes.article.submitarticle);
 app.get('/auth_callback', routes.user.auth_callback);
 app.delete('/article/:id',routes.article.del);
-app.get('/capter/add',routes.capter.add);
-app.post('/capter/add',routes.capter.submit);
-app.get('/capter/delete',routes.capter.del);
 app.listen(config.port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

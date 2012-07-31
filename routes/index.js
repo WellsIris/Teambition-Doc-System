@@ -5,8 +5,7 @@
 var models = require('../models'),
 	Article = models.Article;
 	User = models.User,
-	Document = models.Document,
-	Capter = models.Capter;
+	Document = models.Document;
 
 exports.index = function(req, res){
 	
@@ -17,4 +16,3 @@ exports.index = function(req, res){
 exports.article = require('./article');
 exports.user = require('./user');
 exports.doc = require('./doc');
-exports.capter = require('./capter');

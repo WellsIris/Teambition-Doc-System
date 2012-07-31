@@ -8,7 +8,17 @@ define([
 	    model:ArticleModel,
 		articlesperpage:10,
 		url:'/articles',
-		sortByOutline:function(){
+		sortByIndex:function(){
+			var result = [];
+			var len = this.models.length;
+			var ms = this.models;
+			for(var i=0;i<len;i++){
+				var l = ms[i].get("index");
+				result[l] = ms[i];
+			}
+			this.models = result;
+		},
+		_sortByOutline:function(){
 			if(!doc_sys.outline){
 				return "error:doc_sys.outline is not existed";
 			}
@@ -22,11 +32,11 @@ define([
 			var result = [];
 			
 			for(var i=0;i<len;i++){
-				var mo = m[atls[i]];
-				var caps = mo.get("capters");
-				caps = this.mapIt(caps,"title");
-				var ol_caps = ol[atls[i]];
-				var c_len = ol_caps.length;
+				var mo = m[atls[i]];console.log("mo:"+mo);
+				var caps = mo.get("capters");console.log("caps:"+caps);
+				caps = this.mapIt(caps,"title");console.log("caps:"+caps);
+				var ol_caps = ol[atls[i]];console.log("ol_caps:"+ol_caps);
+				var c_len = ol_caps.length;console.log("c_len:"+c_len);
 				if(c_len != mo.get("capters").length){
 					return "error:length not match in caps";
 				}
@@ -41,7 +51,7 @@ define([
 
 		},
 		mapIt:function(arr,str){
-			console.log(arr);
+			
 			var result = {};
 			var len = arr.length;
 			for(var i=len-1;i>=0;i--){
@@ -54,7 +64,7 @@ define([
 			}
 			return result;
 		},
-		sortByIndex:function(){
+		_sortByIndex:function(){
 			console.log("sortByIndex is invoked");
 			var m = this.models;
 			var len =m.length;

@@ -4,7 +4,7 @@ var DocumentSchema = new Schema({
 	founder:String,
 	partners:String,
 	docName: String,
-	outline:String,
+	atls:{type:Number,default:0},
 	create_at: {type: Date, default: Date.now}
 });
 

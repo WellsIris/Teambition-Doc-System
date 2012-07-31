@@ -42,13 +42,6 @@ define([
 		
 		$(this.el).html(this.template(this.mo));
 		
-		var c = $(this.el).find("ul.capterList");
-		var caps = this.mo.capters;
-		var len = caps.length;
-		for(var i=0;i<len;i++){
-			$(c).append(this.makeCap(caps[i]));
-		}
-		
 		return this;
 	},
 	delete:function(){
@@ -61,15 +54,7 @@ define([
 	},
 	edit:function(){
 		console.log("edit is invoked");
-		if(!doc_sys.editTemp){
-			doc_sys.editTemp = doT.template(EditorTemplate);
-		}
-		var d = document.createElement("div");
-		$(d).html(doc_sys.editTemp(this.mo));
-		$(this.el).append(d);
-		$(d).find("form").submit();
-		console.log($(d).find("form"));
-		console.log("edit end");
+		
 	},
 	showArticle:function(){
 		var self = this;
@@ -143,18 +128,16 @@ define([
 		return c;
 	},
 	makeNumList:function(num){
-		console.log("num:"+num);
 		var result="" ;
 		for(var i=1;i<=num;i++){
 			result = result+"<div>"+i+"</div>";
 		}
-		console.log("result:"+result);
 		return result;
 	},
 	analysis:function(con,sim){
 		
 		var parts = con.split("$part$");
-		console.log(con);
+	
 		var texts = parts[0].split("$text$");
 		var codes = parts[1].split("$code$");
 

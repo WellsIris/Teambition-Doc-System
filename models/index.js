@@ -10,7 +10,5 @@ mongoose.connect('mongodb://localhost/tbdocdb', function(err){
 // models
 require('./article');
 require('./document');
-require('./capter');
 exports.Article = mongoose.model('Article');
 exports.Document = mongoose.model('Document');
-exports.Capter = mongoose.model('Capter');

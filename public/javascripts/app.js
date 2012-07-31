@@ -3,6 +3,8 @@ define([
 	'underscore',
 	'backbone',
 	'json2',
+	'WMD',
+	'Showdown',
 	'UserModel',
 	'DocModel',
 	'ArticleModel',
@@ -15,7 +17,7 @@ define([
 	'UserController',
 	'DocController',
 	'ArticleController'
-], function ($, _, Backbone, json2, UserModel,DocModel, ArticleModel,DocCollection,ArticleCollection,UserView,DocView,ArticleView,ItemView,AppUser,AppDoc,AppArticle){
+], function ($, _, Backbone, json2,WMD,Showdown, UserModel,DocModel, ArticleModel,DocCollection,ArticleCollection,UserView,DocView,ArticleView,ItemView,AppUser,AppDoc,AppArticle){
 
 	
 	var setUpOauth = function (){
@@ -57,18 +59,7 @@ define([
 		doc_sys.docCache = [];
 			
 		function init(){
-			if(doc_sys.login_user != ""){
-				
-				$.ajax({
-					type:'POST',
-					url:'/doc/session?user='+doc_sys.login_user,
-					
-					success:function(){
-						console.log("save session success");
-						init();
-					}
-				});
-			}
+			
 			doc_sys.user = new UserModel;
 			doc_sys.docs = new DocCollection;
 			
@@ -79,7 +70,9 @@ define([
 
 			//doc_sys.apparticle = new AppArticle;
 		}
-
+		doc_sys.login_user = "李磊";
+		init();
+/*
 		$.ajax({
 					url:'http://api.teambition.com/v2/user/info/',
 					type:'get',
@@ -90,12 +83,12 @@ define([
 					},
 					error:function(){
 						console.log("ajax error");
-						doc_sys.login_user = "";
+						doc_sys.login_user = "李磊";
 						init();
 					}
 				});
 		
-
+*/
 	};
 
 	return {

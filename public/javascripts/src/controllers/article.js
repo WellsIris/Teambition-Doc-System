@@ -7,7 +7,7 @@ define([
 	'ItemView'
 ],function ($, _, Backbone, doT, ArticleView , ItemView ){
 	var AppView = Backbone.View.extend({
-		el:$("#mainMiddle"),
+		el:$("#mainMiddle>ul"),
 		initialize:function(){
 			var self = this;
 			this.collection = doc_sys.atls;
@@ -17,7 +17,7 @@ define([
 				success:function(){
 					console.log("fetch success");
 					var that = self.collection.models;
-					self.collection.sortByOutline();
+					self.collection.sortByIndex();
 					self.render();
 				},
 				error:function(){
@@ -37,7 +37,7 @@ define([
 				self.showOne(model);
 			});
 
-			var cs = $(".capterList li");
+			var cs = $(".doc h2");
 			
 			var len = cs.length;
 			var oss = [];

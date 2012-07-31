@@ -8,14 +8,15 @@ define([
 	'ArticleCollection',
 	'ArticleController',
 	'text!../../../templates/article/doc.html',
-	'text!../../../templates/article/doc-create.html'
-],function ($, _, Backbone, doT,LEES_SHADE,ArticleModel,ArticleCollection,AppArticle,DocTemplate,DocCreateTemp){
+	'text!../../../templates/article/doc-create.html',
+	'text!../../../templates/article/atl_edit.html'
+],function ($, _, Backbone, doT,LEES_SHADE,ArticleModel,ArticleCollection,AppArticle,DocTemplate,DocCreateTemp,AtlEditTemp){
 	var DocView = Backbone.View.extend({
 	tagName:"li",
-	events:{
 		
 		"click .delete" : "delete",
 		"click .close"  : "clear",
+	events:{
 		"click .edit"   : "edit"
 	},
 	initialize:function(model){
@@ -27,7 +28,7 @@ define([
 		if(!this.model.views){
 				this.model.views = {};
 			}
-			this.model.views.doc = this;
+		this.model.views.doc = this;
 		
 
 	},
@@ -47,11 +48,15 @@ define([
 		$(this.el).html(this.template(self.mo));
 		this.doc_go = $(this.el).find(".doc_go");
 		$(this.el).find(".doc-title").click(function(){
-			$("#mainMiddle").html("");
+			$("#mainMiddle>ul").html("");
 			$("#mainRight").html("");
 			doc_sys.doc_id = self.model.get("_id");
-			doc_sys.outline = self.model.get("outline");
-			doc_sys.appatl = new AppArticle;
+			if(doc_sys.appatl){
+				self.app = doc_sys.appatl;
+				doc_sys.appatl.initialize();
+			}else{
+				self.app =doc_sys.appatl = new AppArticle;
+			}
 			self.resize();
 			self.showLeft();
 		});
@@ -65,10 +70,6 @@ define([
 	delete:function(){
 		console.log("delete invoked."+this.model.get("index"));
 		this.model.clear();
-	},
-	clear:function(){
-		console.log("clear invoked."+this.model.get("index"));
-		this.remove();
 	},
 	edit:function(){
 		console.log("edit is invoked");
@@ -86,8 +87,12 @@ define([
 		var self = this;
 		$(ob).click(function(){
 			doc_sys.doc_id = self.model.get("_id");
-			doc_sys.outline = self.model.get("outline");
-			doc_sys.appatl = new AppArticle;
+			if(doc_sys.appatl){
+				self.app = doc_sys.appatl;
+				doc_sys.appatl.initialize();
+			}else{
+				self.app =doc_sys.appatl = new AppArticle;
+			}
 			self.resize();
 			self.showLeft();
 
@@ -113,23 +118,112 @@ define([
 	},
 	showLeft:function(){
 		window.doc_sys.tree = {};
-		var ol = this.model.get("outline");
-		var arts = ol.articles;
-		var len = arts.length;
+		var len = this.model.get("atls");
 		var width = document.documentElement.clientWidth;
 		var self = this;
 		var end_w = width*0.2;
 		var href = "/article/add?user="+doc_sys.login_user+"&id="+doc_sys.doc_id;
-		$("#mainRight").html('<div class="h20"></div><div class="btn_b headBtn_l"><a href='+href+'>创建新文章</a></div>')
+		$("#mainRight").html('<div class="h20"></div><div class="btn_b headBtn_l" id="createAtl"><a>创建新文章</a></div>')
 					   .css("right",-end_w);
-		for(var i=0;i<len;i++){
-			var a = this.renderArticle(arts[i],ol[arts[i]],i);
-			$("#mainRight").append(a);
+		var createAtl = new LEES_SHADE();
+		this._template = doT.template(AtlEditTemp);
+		var html = this._template({header:"撰写新文章"
+								   ,author:self.mo.user
+								   ,doc_id:self.mo._id
+								   ,content:""
+								   ,id:""});
+
+		createAtl.blind($("body"),{
+			evtobj:$("#createAtl"),
+			don:true,
+			dwid:"auto",
+			dhei:"auto",
+			html:html,
+			callprev:function(bg,dia){
+				$(dia).find("#button-bar").append($("#wmd-button-bar").removeClass("hidden"));
+				$(dia).find("#textarea").append($("#wmd-input").removeClass("hidden").val(""));
+				$(dia).find("#preview").append($("#wmd-preview").removeClass("hidden"));
+				$(dia).css({"min-width":document.documentElement.clientWidth,
+							"min-height":document.documentElement.clientHeight,
+							"position":"absolute",
+							"left":0,"top":0,"border":"none"});
+
+			},
+			afterevt:function(bg,dia){
+				$(dia).find("input[name='title']").focus();
+				$(dia).find("#submit").click(function(){
+					var inputs = $(dia).find("input");
+					var len = inputs.length;
+					var result = [];
+					for(var i=0;i<len;i++){
+						result.push($(inputs[i]).val());
+					}
+					var title = result[0];
+					var author = result[1];
+					var doc_id = result[2];
+					var content = $(dia).find("textarea").val();
+					var l = content.indexOf("\n");
+					var es = escape(content);
+					var html = $("#wmd-preview").html();
+					console.log(typeof html);
+					console.log("html:"+html);
+					var html = escape(html);
+					$.ajax({
+						url:"/article/add?t="+title+"&a="+author+"&d="+doc_id+"&c="+es+"&h="+html,
+						success:function(data){
+							$(bg).hide();
+							$(dia).hide();
+							self.app.initialize();
+						}
+					});
+				});
+			}
+		});
+		$("#submit").click(function(){
+			return self.ajax();
+		});
+		var tree = this.initArticle(len);
+		
+
+		
+	},
+	ajax:function(){
+
+	},
+	initArticle:function(len){
+		var self = this;
+		if($(".art_title").length<len){
+			console.log($(".art_title").length);
+			var timer = setTimeout(function(){
+				return self.initArticle();
+			},500);
+			return false;
 		}
+		var titles = $(".art_title");
+		var caps = $(".doc");
+		var ts = [];
+		var tree = {};
+		var ts_len = titles.length
+		for(var i=0;i<ts_len;i++){
+			ts.push($(titles[i]).html());
+			var cs = [];
+			var c_ts = $(caps[i]).find("h2");
+			var cs_len = c_ts.length;
+			for(var j=0;j<cs_len;j++){
+				cs.push($(c_ts[j]).html());
+			}
+			tree[ts[i]] = cs;
+		}
+		console.log("tree:"+tree);
+		var index=0;
+		for(var va in tree){
+			var out = this.renderArticle(va,tree[va],index++);
+			$("#mainRight").append(out);
+		}
+
 		$("#mainRight").animate({"right":0})
 					   .addClass("shadow");
 
-		
 	},
 	renderArticle:function(art,caps,index){
 		window.doc_sys.tree[art] = [];
@@ -137,7 +231,7 @@ define([
 		$(out).addClass("main-right-out");
 		var a = document.createElement("div");
 		if(this.mana){
-			var tool =this.makeTool(art,this.model.get("_id"),["add","up","down","delete"]);
+			var tool =this.makeTool(art,this.model.get("_id"),["edit","up","down","delete"]);
 		}
 		$(tool).addClass("main-right-tool");
 		var c = document.createElement("div");
@@ -153,7 +247,7 @@ define([
 				$(tool).css("display","none");
 			});
 		var cs = this.renderCapter(art,caps,index);
-		
+		console.log(cs);
 		$(out).append(a).append(cs);
 		
 		
@@ -165,29 +259,18 @@ define([
 		$(result).css("width","100%");
 		for(var i=0;i<len;i++){
 			var c = document.createElement("div");
-			//var text = document.createElement("div");
-			//$(text).html(caps[i]).addClass("main-right-capter-text");
-			if(this.mana){
-				var tool =this.makeTool(art,this.model.get("_id"),["edit","up","down","delete"]);
-			}
-			$(tool).addClass("main-right-tool");
-			var clear = document.createElement("div");
-			$(clear).addClass("clear");
-
-			$(c).attr("index",[index,i]).addClass("main-right-capter").html(caps[i]).append(tool).append(clear)
+			
+			$(c).attr("index",[index,i]).addClass("main-right-capter").html(caps[i])
 				.hover(function(){
 					$(".hoverd").css("background","#eee")
 												   .css("color","#aaa")
-												   .removeClass("hoverd")
-												   .find(".main-right-tool")
-												   .css("display","none");
+												   .removeClass("hoverd");
 					$(this).css("background","#ddd")
 						   .css("color","#666");
-					$(this).find(".main-right-tool").css("display","block");
+					
 				},function(){
 					$(this).css("background","#eee")
 						   .css("color","#aaa");
-					$(this).find(".main-right-tool").css("display","none");
 					
 				})
 				.click(function(){
@@ -207,7 +290,7 @@ define([
 
 					var tag = cs[index[1]];
 					var top = document.documentElement.scrollTop;
-					var tag_top = $(tag).offset();
+					var tag_top = $(tag).offset()||{top:top,left:0};
 					console.log(top);
 					var change = tag_top.top - top;
 					var step = change/25;
@@ -231,6 +314,7 @@ define([
 	},
 	makeTool:function(art,id,arr){
 		var len = arr.length;
+		var self = this;
 		var tool = document.createElement("div");
 		for(var i=0;i<len;i++){
 			var c = document.createElement("a");
@@ -244,28 +328,47 @@ define([
 					$(this).removeClass("icons_"+type+"_y").addClass("icons_"+type+"_b");
 				});
 			if(arr[i] == "add"){
+				console.log("is add");
 				var href = '/capter/add?t='+art+'&id='+id;
 				$(c).attr("href",href);
 			}else if(arr[i] == "delete"){
 				$(c).click(function(){
 					var p = $(this).parent().parent();
 					if($(p).hasClass("main-right-article")){
-
+						console.log("is article");
 					}else{
 						var cap = $(p).html().split("<div")[0];
+						
 						var index = $(p).attr("index");
-						console.log(index);
+						index = index.split(",");
+					
 						var as = $(".capterList");
-						var c = $(as[index[0]]).find("li")[index[1]];
-						console.log(c);
-						$(as[index[0]]).remove(c);
-						$(p).parent().remove(p);
+						var c = $(as[index[0]]).find("li");
+						var c = c[index[1]];
+					
+						$(c).remove();
+						$(p).remove();
 						$.ajax({
-							url:'/capter/delete?a='+art+'&id='+id
+							url:'/capter/delete?a='+art+'&id='+id+'&c='+cap+'&index='+index[1]
 						});
 					}
 					
 				});
+			}else if(arr[i] == "edit"){
+				$(c).click(function(){
+					var p = $(this).parent().parent();
+					var index = $(p).attr("index");
+					$("input[name='title']").val(self.mo.title);
+					$("#wmd-input").val(doc_sys.atls[index]);
+
+				});				
+				//var index = $(p).attr("index")[2];
+				//console.log("index:"+index);
+				//$(c).attr("href","/capter/edit?index="+index+"&a="+art+"&id="+id);
+			}else if(arr[i]=="up"){
+
+			}else if(arr[i]=="down"){
+
 			}
 
 			$(tool).append(c);

@@ -1,12 +1,13 @@
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-	Capter = require('./capter');
+	Schema = mongoose.Schema;
 	
 var ArticleSchema = new Schema({
 	author:String,
 	title: String,
-	capters:[Capter],
+	content:String,
+	html:String,
 	doc_id:String,
+	index:Number,
 	create_at: {type: Date, default: Date.now}
 });
 

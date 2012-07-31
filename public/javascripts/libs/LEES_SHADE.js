@@ -119,7 +119,7 @@ define([
 
 										$(bg).css("position","absolute").css("top",d.stop).css("left",d.sleft).css("width",d.swid)
 										.css("height",d.shei).css("opacity",d.sopc).css("filter","alpha(opacity:"+d.sopc*100+")")
-										.css("background",d.scol).css("z-index",1999);
+										.css("background",d.scol).css("z-index",199);
 										
 										
 										d.parentobj.append(bg);
@@ -128,7 +128,7 @@ define([
 										if(d.don){
 										var dia = document.createElement("div");
 										$(dia).html(d.html);
-										$(dia).css({width:d.dwid,height:d.dhei,background:d.dcol,border:"5px solid #ccc","z-index":2000});
+										$(dia).css({width:d.dwid,height:d.dhei,background:d.dcol,border:"5px solid #ccc","z-index":200});
 										if(d.parentobj[0] == $('body')[0]){
 										$(dia).css("position","fixed").css("top",LEES_SHADE.CLIENT_H/2-d.dhei/2).css("left",LEES_SHADE.CLIENT_W/2-d.dwid/2);
 										}
