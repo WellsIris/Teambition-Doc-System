@@ -12,13 +12,12 @@ h1 {
   line-height: 70px;
   font-size: 21px;
   font-weight: bold;
-  color: #aaa;
+  color: #666;
   text-shadow: 0 2px 0 #fff;
 }
 h2 {
-  font-size: 30px;
+  font-size: 21px;
   color: #666;
-  text-align: center;
   font-weight: bold;
   margin-bottom: 5px;
   margin-top: 10px;
@@ -49,7 +48,7 @@ body {
   color: #02b6d6;
 }
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 .h10 {
   height: 10px;
@@ -363,6 +362,14 @@ input {
 #mainMiddle>ul {
   list-style: none;
 }
+.art_title {
+  text-align: center;
+  line-height: 70px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 0 2px 0 #fff;
+}
 #mainRight {
   width: 20%;
   position: fixed;
@@ -433,7 +440,7 @@ input {
 #preview {
   float: left;
   width: 48%;
-  margin-left: 4px;
+  margin-left: 10px;
 }
 #navigationbar {
   position: fixed;

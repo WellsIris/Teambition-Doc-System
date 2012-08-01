@@ -28,7 +28,7 @@ define([
 			"refresh":"showAll"
 		},
 		render:function(){
-			console.log("apparticle render start");
+			console.log("appdoc render start");
 			var self = this;
 			_.each(this.collection.models, function (model, index){
 				self.showOne(model);

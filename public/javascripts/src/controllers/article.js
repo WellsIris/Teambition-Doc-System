@@ -3,21 +3,24 @@ define([
 	'underscore',
 	'backbone',
 	'doT',
+	'ArticleModel',
 	'ArticleView',
 	'ItemView'
-],function ($, _, Backbone, doT, ArticleView , ItemView ){
+],function ($, _, Backbone, doT,ArticleModel ,ArticleView , ItemView ){
 	var AppView = Backbone.View.extend({
 		el:$("#mainMiddle>ul"),
 		initialize:function(){
+			console.log("article init");
 			var self = this;
 			this.collection = doc_sys.atls;
-			doc_sys.atls.bind("sync",this.showAll,this);
-			doc_sys.atls.bind("reset",this.showAll,this);
+			
 			this.collection.fetch({
 				success:function(){
 					console.log("fetch success");
 					var that = self.collection.models;
+					console.log(that);
 					self.collection.sortByIndex();
+					console.log("sorted");
 					self.render();
 				},
 				error:function(){
@@ -25,14 +28,14 @@ define([
 				},
 				url:'/articles?doc_id='+doc_sys.doc_id
 			});
-		},
-		events: {
-			"click .add_art":"showOne",
-			"refresh":"showAll"
+		
+
+			console.log("init end");
 		},
 		render:function(){
 			console.log("apparticle render start");
 			var self = this;
+			console.log(this.collection);
 			_.each(this.collection.models, function (model, index){
 				self.showOne(model);
 			});

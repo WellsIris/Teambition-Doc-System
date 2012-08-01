@@ -15,15 +15,15 @@ exports.addarticle = function(req, res){
 	var doc_id = req.param("d");
 	var title = req.param("t");
 	var content = req.param("c");
-	var html = req.param("h");
-	console.log(html+"content:"+content);
+	var h = req.param("h");
+	console.log(h+"content:"+content);
 	var id = req.param("i");
 	console.log("id"+id);
 	if(id !=""&&typeof id != "undefined"){
 		Article.update({_id:id},{$set:{
 			title:title,
 			content:content,
-			html:html
+			h:h
 		}},false,false);
 		res.writeHead(200, {"Content-Type": "application/text"});
 		res.write("update success");
@@ -34,7 +34,7 @@ exports.addarticle = function(req, res){
 		a.doc_id = doc_id;
 		a.title= title;
 		a.content = content;
-		a.html = html;
+		a.h = h;
 		Document.find({_id:doc_id},function(err,doc){
 			var index = doc[0].atls;
 			a.index = index;
@@ -43,7 +43,7 @@ exports.addarticle = function(req, res){
 			Document.update({_id:doc_id},{$set:{
 				atls:index+1
 			}},false,false);
-			res.writeHead(200, {"Content-Type": "application/json"});
+			res.writeHead(200, {"Content-Type": "application/text"});
 			
 			res.write("add success");
 			res.end();
@@ -112,9 +112,11 @@ exports.submitarticle = function(req, res){
 
 exports.del = function(req, res){
 	console.log("article.del is invoked");
-	var id=req.body.id||req.params.id;
+	var id=req.param("id");
 	Article.remove({"_id":id},function(err){console.log("error:"+err);});
-	res.redirect('/');
+	res.writeHead(200, {"Content-Type": "application/text"});		
+	res.write("del success");
+	res.end();
 };
 
 exports.getAll = function(req, res){
@@ -125,7 +127,9 @@ exports.getAll = function(req, res){
 	
 	Article.find({doc_id:doc_id},function(err,as){
 		for(var i = 0; i < as.length; i++){
-		   atls.push(as[i]);
+			//as[i].html = escape(as[i].html);
+			//as[i].content = escape(as[i].content);
+			atls.push(as[i]);
 		}
 		res.writeHead(200, {"Content-Type": "application/json"});
 		var result = JSON.stringify(atls) || '';

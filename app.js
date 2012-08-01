@@ -46,11 +46,10 @@ app.post('/doc/add*',routes.doc.add);
 app.get('/docs',routes.doc.getAll);
 app.get('/articles', routes.article.getAll);
 app.get('/article/add', routes.article.addarticle);
-app.post('/article/edit', routes.article.editarticle);
+app.get('/article/delete',routes.article.del);
 app.post('/article/put', routes.article.update);
 app.post('/article/add', routes.article.submitarticle);
 app.get('/auth_callback', routes.user.auth_callback);
-app.delete('/article/:id',routes.article.del);
 app.listen(config.port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

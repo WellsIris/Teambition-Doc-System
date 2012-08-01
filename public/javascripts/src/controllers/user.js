@@ -31,18 +31,19 @@ define([
 
 			var dcb = $("#docCreateBtn");
 			if(doc_sys.login_user != ""){
-				console.log("user existed and dcb is "+$(dcb).html());
+				
 				var aaa = doT.template(DocCreateTemp)({founder:doc_sys.login_user});
-				console.log(aaa);
+				
 				var dc = new LEES_SHADE();
 				dc.blind($("body"),{
 					evtobj:dcb,
 					don:true,
-					dwid:500,
-					dhei:600,
+					dwid:400,
+					dhei:200,
 					html:aaa,
 					callprev:function(b,d){
-						$(d).css("overflow","scroll");
+						$(d).css({"min-height":200,height:"auto"});
+						//$(d).css("overflow","scroll");
 					}
 				});
 

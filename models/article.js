@@ -5,7 +5,7 @@ var ArticleSchema = new Schema({
 	author:String,
 	title: String,
 	content:String,
-	html:String,
+	h:String,
 	doc_id:String,
 	index:Number,
 	create_at: {type: Date, default: Date.now}

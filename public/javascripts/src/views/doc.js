@@ -39,6 +39,7 @@ define([
 		if(this.model.get("founder")==doc_sys.login_user||this.findIn(partners,doc_sys.login_user)){
 			this.mana = true;
 		}else{
+
 			this.mana = false;
 		}
 
@@ -52,10 +53,11 @@ define([
 			$("#mainRight").html("");
 			doc_sys.doc_id = self.model.get("_id");
 			if(doc_sys.appatl){
+				console.log("appatl existed");
 				self.app = doc_sys.appatl;
 				doc_sys.appatl.initialize();
-			}else{
-				self.app =doc_sys.appatl = new AppArticle;
+			}else{console.log("appatl not existed");
+				self.app =doc_sys.appatl = new AppArticle();
 			}
 			self.resize();
 			self.showLeft();
@@ -145,13 +147,14 @@ define([
 				$(dia).find("#preview").append($("#wmd-preview").removeClass("hidden"));
 				$(dia).css({"min-width":document.documentElement.clientWidth,
 							"min-height":document.documentElement.clientHeight,
-							"position":"absolute",
+							
 							"left":0,"top":0,"border":"none"});
 
 			},
 			afterevt:function(bg,dia){
 				$(dia).find("input[name='title']").focus();
 				$(dia).find("#submit").click(function(){
+					var that = self;
 					var inputs = $(dia).find("input");
 					var len = inputs.length;
 					var result = [];
@@ -161,6 +164,7 @@ define([
 					var title = result[0];
 					var author = result[1];
 					var doc_id = result[2];
+					var id = result[3];
 					var content = $(dia).find("textarea").val();
 					var l = content.indexOf("\n");
 					var es = escape(content);
@@ -169,21 +173,32 @@ define([
 					console.log("html:"+html);
 					var html = escape(html);
 					$.ajax({
-						url:"/article/add?t="+title+"&a="+author+"&d="+doc_id+"&c="+es+"&h="+html,
+						url:"/article/add?t="+title+"&a="+author+"&d="+doc_id+"&i="+id+"&c="+es+"&h="+html,
 						success:function(data){
+							console.log("success");
 							$(bg).hide();
 							$(dia).hide();
-							self.app.initialize();
+							if(this.len){
+								this.len++;
+							}else{
+								this.len = that.model.get("atls")+1;
+							}
+							$("#mainMiddle>ul").html("");
+							$("#mainRight").find(".main-right-out").remove();
+							that.app.initialize();
+							that.initArticle(this.len);
+						},
+						error:function(){
+							console.log("error");
+							
 						}
 					});
 				});
 			}
 		});
-		$("#submit").click(function(){
-			return self.ajax();
-		});
-		var tree = this.initArticle(len);
 		
+		var tree = this.initArticle(len);
+		//console.log(tree);
 
 		
 	},
@@ -191,13 +206,14 @@ define([
 
 	},
 	initArticle:function(len){
+		//console.log(1);
 		var self = this;
 		if($(".art_title").length<len){
-			console.log($(".art_title").length);
-			var timer = setTimeout(function(){
-				return self.initArticle();
+			//console.log($(".art_title").length);
+			setTimeout(function(){
+				return self.initArticle(len);
 			},500);
-			return false;
+			return "null";
 		}
 		var titles = $(".art_title");
 		var caps = $(".doc");
@@ -334,32 +350,31 @@ define([
 			}else if(arr[i] == "delete"){
 				$(c).click(function(){
 					var p = $(this).parent().parent();
-					if($(p).hasClass("main-right-article")){
-						console.log("is article");
-					}else{
-						var cap = $(p).html().split("<div")[0];
-						
-						var index = $(p).attr("index");
-						index = index.split(",");
+					var index = $(p).attr("index");
+					var id = doc_sys.idsArr[index];
 					
-						var as = $(".capterList");
-						var c = $(as[index[0]]).find("li");
-						var c = c[index[1]];
-					
-						$(c).remove();
-						$(p).remove();
-						$.ajax({
-							url:'/capter/delete?a='+art+'&id='+id+'&c='+cap+'&index='+index[1]
-						});
-					}
-					
+					$.ajax({
+						url:'/article/delete?id='+id,
+						success:function(){
+							$($(".art_content")[index]).remove();
+							$(p).remove();
+						},
+						error:function(){
+							console.log("error");
+						}
+					});
 				});
 			}else if(arr[i] == "edit"){
 				$(c).click(function(){
 					var p = $(this).parent().parent();
 					var index = $(p).attr("index");
-					$("input[name='title']").val(self.mo.title);
-					$("#wmd-input").val(doc_sys.atls[index]);
+					var tlt = doc_sys.tltsArr[index];
+					$("input[name='title']").val(tlt);
+					console.log(doc_sys.atls[index]);
+					$("#wmd-input").val(doc_sys.atlsArr[index]);
+					$("input[name='id']").val(doc_sys.idsArr[index]);
+					$("#createAtl").click();
+					$(".commonbg h1").html("编辑文章");
 
 				});				
 				//var index = $(p).attr("index")[2];

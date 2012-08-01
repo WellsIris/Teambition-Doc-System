@@ -4,8 +4,17 @@ body
 }
 pre
 {
-	background-color: white;
+	background-color: #EFFFD7;
 	padding:8px;	
+	border :1px solid #aaa;
+	border-radius: 5px;
+	-moz-box-shadow:0 3px 3px #aaa ;
+	-webkit-box-shadow:0 3px 3px #aaa ;
+	box-shadow:0 3px 3px #aaa ;
+	word-break:break-all;
+	word-wrap :break-word;
+	overflow-x:scroll; 
+	margin-top:5px;
 }
 code{
 	word-break:break-all;
@@ -33,7 +42,6 @@ code{
 #wmd-input 
 { 
 	min-height: 500px;
-	height:auto;
 	width: 100%;
 	background-color: #fff;
 	border: 1px solid DarkGray;
@@ -46,10 +54,11 @@ code{
 { 
 	background-color: #f7f7f7; 
 	border: 1px solid DarkGray;
-	min-height: 500px;
+	height: 500px;
 	padding:4px;
 	word-break:break-all;
 	word-wrap :break-word;
+	overflow: scroll;
 
 
 }
